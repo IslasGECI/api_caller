@@ -1,2 +1,2 @@
-def construct_entrypoint_url(entrypoint_name):
-    return "https://eradication_process"
+def construct_entrypoint_url(service_name):
+    return f"https://{service_name}"

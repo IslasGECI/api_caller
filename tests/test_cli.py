@@ -12,3 +12,4 @@ def test_call_entrypoint():
     result = runner.invoke(cli, ["call", "--help"])
     assert result.exit_code == 0
     assert "--service-name " in result.stdout
+    assert "--port " in result.stdout

@@ -10,18 +10,18 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@main
     - name: Construye imagen
-      run: docker build --tag islasgeci/dummy_transformations:latest --tag islasgeci/dummy_transformations:${GITHUB_SHA:0:4} .
+      run: docker build --tag islasgeci/api_caller:latest --tag islasgeci/api_caller:${GITHUB_SHA:0:4} .
     - name: Verifica el formato
-      run: docker run islasgeci/dummy_transformations:latest make check
+      run: docker run islasgeci/api_caller:latest make check
     - name: Corre pruebas y evalúa cobertura
-      run: docker run --volume $PWD:/workdir islasgeci/dummy_transformations:latest make coverage
+      run: docker run --volume $PWD:/workdir islasgeci/api_caller:latest make coverage
     - name: Upload coverage reports to Codecov with GitHub Action
       uses: codecov/codecov-action@v3
       with:
         files: ./coverage.xml
         verbose: true
     - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/dummy_transformations:latest make mutants
+      run: docker run islasgeci/api_caller:latest make mutants
     - name: Create/Update tag
       uses: rickstaa/action-create-tag@v1.5.4
       with:
@@ -34,9 +34,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
     - name: Sube latest a Docker Hub
-      run: docker push islasgeci/dummy_transformations:latest
+      run: docker push islasgeci/api_caller:latest
     - name: Sube sha a Docker Hub
-      run: docker push islasgeci/dummy_transformations:${GITHUB_SHA:0:4}
+      run: docker push islasgeci/api_caller:${GITHUB_SHA:0:4}
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-latest

@@ -2,3 +2,4 @@
 
 __version__ = "0.4.0"
 from .call_api import *  # noqa
+from .cli import *  # noqa

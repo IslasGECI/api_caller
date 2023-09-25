@@ -4,5 +4,5 @@ cli = typer.Typer()
 
 
 @cli.command()
-def call_entrypoint():
+def call(service_name: str = typer.Option(help="")):
     pass

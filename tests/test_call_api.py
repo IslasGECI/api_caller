@@ -12,3 +12,7 @@ def test_construct_entrypoint_url():
     obtained_url = construct_entrypoint_url(service_name, port)
     expect_url = "http://edr_api:10001"
     assert obtained_url == expect_url
+
+    entrypoint_name = "/write_csv"
+    obtained_url = construct_entrypoint_url(service_name, port, entrypoint_name)
+    expect_url = "http://edr_api:10001/write_csv"

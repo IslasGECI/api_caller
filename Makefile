@@ -14,7 +14,7 @@ all: check coverage mutants
 		tests
 
 module = api_caller
-codecov_token = 6c56bccb-1758-4ed9-8161-97c845591c26
+codecov_token = 793874af-bfd6-4041-b6c4-f46b22f472a3
 
 define lint
 	pylint \

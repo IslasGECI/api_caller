@@ -10,5 +10,9 @@ description-file = "README.md"
 home-page = "https://github.com/IslasGECI/api_caller"
 module = "api_caller"
 requires = [
+    "typer[all]"
 ]
 requires-python=">=3.9"
+
+[tool.flit.scripts]
+api-caller = "api_caller.cli:cli"

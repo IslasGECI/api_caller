@@ -11,6 +11,7 @@ home-page = "https://github.com/IslasGECI/api_caller"
 module = "api_caller"
 requires = [
     "requests",
+    "requests_mock",
     "types-requests",
     "typer[all]",
 ]

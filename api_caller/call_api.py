@@ -6,11 +6,6 @@ def construct_entrypoint_url(service_name, port=10000, entrypoint_name="", **kwa
     return base_url + options[:-1]
 
 
-def wrap_arguments(variable, input_path, bootstrapping_number, output_path):
-    arguments_dict = {
-        "window_length": variable,
-        "input_path": input_path,
-        "bootstrapping_number": bootstrapping_number,
-        "output_path": output_path,
-    }
+def wrap_arguments(window_length, input_path, bootstrapping_number, output_path):
+    arguments_dict = locals()
     return arguments_dict

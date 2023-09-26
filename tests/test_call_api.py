@@ -30,7 +30,7 @@ def test_wrap_arguments():
     input_path = "data.csv"
     output_path = "probability.csv"
     bootstrapping_number = 13
-    obtained = wrap_arguments(window_length, input_path, bootstrapping_number)
+    obtained = wrap_arguments(window_length, input_path, bootstrapping_number, output_path)
     assert isinstance(obtained, dict)
     assert obtained["window_length"] == window_length
     assert obtained["input_path"] == input_path

@@ -27,7 +27,8 @@ def test_construct_entrypoint_url():
 
 def test_wrap_arguments():
     window_length = 1
-    variable_a = "a"
-    obtained = wrap_arguments(window_length)
+    input_path = "data.csv"
+    obtained = wrap_arguments(window_length, input_path)
     assert isinstance(obtained, dict)
     assert obtained["window_length"] == window_length
+    assert obtained["input_path"] == input_path

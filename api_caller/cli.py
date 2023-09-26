@@ -23,3 +23,11 @@ def write_csv_probability(
     )
     response = requests.get(url)
     print(response.status_code)
+
+
+@cli.command()
+def write_probability_progress_figure(
+    input_path: str = typer.Option(help=""),
+    output_path: str = typer.Option(help=""),
+):
+    pass

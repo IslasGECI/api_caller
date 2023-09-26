@@ -1,3 +1,5 @@
+from api_caller import construct_entrypoint_url, wrap_arguments
+import requests
 import typer
 
 cli = typer.Typer()
@@ -13,4 +15,13 @@ def write_csv_probability(
     output_path: str = typer.Option(help=""),
     window_length: int = typer.Option(help=""),
 ):
-    pass
+    queries = wrap_arguments(
+        input_path=input_path,
+        bootstrapping_number=bootstrapping_number,
+        ouput_path=output_path,
+        window_length=window_length,
+    )
+    url = construct_entrypoint_url(
+        "eradication_progress", 10000, "/write_effort_and_captures_with_probability", queries
+    )
+    requests(url)

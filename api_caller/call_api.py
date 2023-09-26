@@ -7,4 +7,5 @@ def construct_entrypoint_url(service_name, port=10000, entrypoint_name="", **kwa
 
 
 def wrap_arguments(variable):
-    return dict()
+    arguments_dict = {"window_length": variable}
+    return arguments_dict

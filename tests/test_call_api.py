@@ -1,4 +1,4 @@
-from api_caller import construct_entrypoint_url
+from api_caller import construct_entrypoint_url, wrap_arguments
 
 
 def test_construct_entrypoint_url():

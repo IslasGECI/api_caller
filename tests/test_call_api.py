@@ -26,7 +26,8 @@ def test_construct_entrypoint_url():
 
 
 def test_wrap_arguments():
-    variable_one = 1
+    window_length = 1
     variable_a = "a"
-    obtained = wrap_arguments(variable_one)
+    obtained = wrap_arguments(window_length)
     assert isinstance(obtained, dict)
+    assert obtained["window_length"] == window_length

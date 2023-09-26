@@ -30,4 +30,12 @@ def write_probability_progress_figure(
     input_path: str = typer.Option(help=""),
     output_path: str = typer.Option(help=""),
 ):
-    pass
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/write_probability_figure",
+        input_path=input_path,
+        output_path=output_path,
+    )
+    response = requests.get(url)
+    print(response.status_code)

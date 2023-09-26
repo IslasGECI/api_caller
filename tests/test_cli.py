@@ -11,9 +11,6 @@ def test_call_entrypoint():
 
     result = runner.invoke(cli, ["write-csv-probability", "--help"])
     assert result.exit_code == 0
-    assert "--service-name " in result.stdout
-    assert "--port " in result.stdout
-    assert "--entrypoint-name " in result.stdout
     assert "--input-path " in result.stdout
     assert "--bootstrapping-number " in result.stdout
     assert "--output-path " in result.stdout

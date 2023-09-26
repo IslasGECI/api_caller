@@ -45,7 +45,5 @@ def tests_writ_csv_probability_entrypoint():
             ],
         )
         assert m.call_count == 1
-        assert (
-            m.request_history[0].url
-            == "http://eradication_progress:10000/write_probability_figure?input_path=probabilities.csv&output_path=figure.png"
-        )
+        expected_url = "http://eradication_progress:10000/write_probability_figure?input_path=probabilities.csv&output_path=figure.png"
+        assert m.request_history[0].url == expected_url

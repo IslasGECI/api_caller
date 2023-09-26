@@ -11,6 +11,7 @@ home-page = "https://github.com/IslasGECI/api_caller"
 module = "api_caller"
 requires = [
     "requests",
+    "types-requests",
     "typer[all]",
 ]
 requires-python=">=3.9"

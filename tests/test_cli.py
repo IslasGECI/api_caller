@@ -13,6 +13,7 @@ def test_call_entrypoint():
     result = runner.invoke(cli, ["write-csv-probability", "--help"])
     assert result.exit_code == 0
     assert "--input-path " in result.stdout
+    assert " Path of input data " in result.stdout
     assert "--bootstrapping-number " in result.stdout
     assert "--output-path " in result.stdout
     assert "--window-length " in result.stdout

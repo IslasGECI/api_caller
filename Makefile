@@ -25,11 +25,12 @@ define lint
         ${1}
 endef
 
-check:
+check: setup
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}
 	flake8 --max-line-length 100 tests
+	mypy --install-types
 	mypy ${module}
 	mypy tests
 
@@ -49,7 +50,9 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
-init: setup tests
+init: setup tests git_config
+
+git_config:
 	git config --global --add safe.directory /workdir
 	git config --global user.name "Ciencia de Datos • GECI"
 	git config --global user.email "ciencia.datos@islas.org.mx"

@@ -9,7 +9,7 @@ cli = typer.Typer()
 def write_csv_probability(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help=""),
-    output_path: str = typer.Option(help=""),
+    output_path: str = typer.Option(help="Path of csv file to write"),
     window_length: int = typer.Option(help=""),
 ):
     url = construct_entrypoint_url(
@@ -27,8 +27,8 @@ def write_csv_probability(
 
 @cli.command()
 def write_probability_progress_figure(
-    input_path: str = typer.Option(help=""),
-    output_path: str = typer.Option(help=""),
+    input_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
 ):
     url = construct_entrypoint_url(
         "eradication_progress",

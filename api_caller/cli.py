@@ -12,14 +12,14 @@ def write_csv_probability(
     output_path: str = typer.Option(help=""),
     window_length: int = typer.Option(help=""),
 ):
-    queries = wrap_arguments(
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/write_effort_and_captures_with_probability",
         input_path=input_path,
         bootstrapping_number=bootstrapping_number,
         ouput_path=output_path,
         window_length=window_length,
-    )
-    url = construct_entrypoint_url(
-        "eradication_progress", 10000, "/write_effort_and_captures_with_probability", queries
     )
     response = requests.get(url)
     print(response.status_code)

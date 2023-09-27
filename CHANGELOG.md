@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-09-27
+
+### Added
+
+- Add two command,`write-csv-probability` `write-probability-progress-figure`, for two entrypoints from `eradication_data_requirements` api.
+
 ## [0.4.0] - 2023-08-31
 
 ### Added
@@ -18,5 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...HEAD
-[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.1
+[unreleased]: https://github.com/IslasGECI/api_caller/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/IslasGECI/api_caller/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/IslasGECI/api_caller/tag/v0.4.0

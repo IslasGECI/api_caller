@@ -1,4 +1,4 @@
-from api_caller import cli
+from geci_caller import cli
 
 import requests_mock
 from typer.testing import CliRunner

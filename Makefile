@@ -13,7 +13,7 @@ all: check coverage mutants
 		setup \
 		tests
 
-module = api_caller
+module = geci_caller
 codecov_token = 793874af-bfd6-4041-b6c4-f46b22f472a3
 
 define lint

@@ -8,7 +8,7 @@ author-email = "ciencia.datos@islas.org.mx"
 classifiers = [ "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",]
 description-file = "README.md"
 home-page = "https://github.com/IslasGECI/api_caller"
-module = "api_caller"
+module = "geci_caller"
 requires = [
     "requests",
     "requests_mock",
@@ -18,4 +18,4 @@ requires = [
 requires-python=">=3.9"
 
 [tool.flit.scripts]
-api-caller = "api_caller.cli:cli"
+geci-caller = "geci_caller.cli:cli"

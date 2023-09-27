@@ -1,4 +1,4 @@
-from api_caller import construct_entrypoint_url
+from geci_caller import construct_entrypoint_url
 import requests
 import typer
 

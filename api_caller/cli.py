@@ -18,7 +18,7 @@ def write_csv_probability(
         "/write_effort_and_captures_with_probability",
         input_path=input_path,
         bootstrapping_number=bootstrapping_number,
-        ouput_path=output_path,
+        output_path=output_path,
         window_length=window_length,
     )
     response = requests.get(url)

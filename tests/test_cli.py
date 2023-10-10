@@ -22,9 +22,7 @@ def test_call_entrypoint():
     assert " Number of months by window " in result.stdout
 
     result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
-    assert_successful_command(result)
-    assert_input_path_argument(result)
-    assert_output_path_argument(result)
+    assert_command_with_input_and_output_paths(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)

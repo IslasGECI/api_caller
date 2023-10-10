@@ -13,8 +13,7 @@ def test_call_entrypoint():
 
     result = runner.invoke(cli, ["write-csv-probability", "--help"])
     assert result.exit_code == 0
-    assert "--input-path " in result.stdout
-    assert " Path of input data " in result.stdout
+    assert_input_path_argument(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstrap by window " in result.stdout
     assert "--output-path " in result.stdout
@@ -24,8 +23,7 @@ def test_call_entrypoint():
 
     result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
     assert result.exit_code == 0
-    assert "--input-path " in result.stdout
-    assert " Path of input data " in result.stdout
+    assert_input_path_argument(result)
     assert "--output-path " in result.stdout
     assert " Path of figure to write " in result.stdout
 

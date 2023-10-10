@@ -31,6 +31,10 @@ def test_call_entrypoint():
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
     assert result.exit_code == 0
+    assert "--input-path " in result.stdout
+    assert " Path of input data " in result.stdout
+    assert "--output-path " in result.stdout
+    assert " Path of figure to write " in result.stdout
 
 
 def tests_write_csv_probability_entrypoint():

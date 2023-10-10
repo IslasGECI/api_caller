@@ -24,19 +24,22 @@ def test_call_entrypoint():
     result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
     assert result.exit_code == 0
     assert_input_path_argument(result)
-    assert "--output-path " in result.stdout
-    assert " Path of figure to write " in result.stdout
+    assert_output_path_argument(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
     assert result.exit_code == 0
     assert_input_path_argument(result)
-    assert "--output-path " in result.stdout
-    assert " Path of figure to write " in result.stdout
+    assert_output_path_argument(result)
 
 
 def assert_input_path_argument(results):
     assert "--input-path " in results.stdout
     assert " Path of input data " in results.stdout
+
+
+def assert_output_path_argument(result):
+    assert "--output-path " in result.stdout
+    assert " Path of figure to write " in result.stdout
 
 
 def tests_write_csv_probability_entrypoint():

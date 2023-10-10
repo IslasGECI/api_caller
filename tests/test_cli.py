@@ -37,6 +37,11 @@ def test_call_entrypoint():
     assert " Path of figure to write " in result.stdout
 
 
+def assert_input_path_argument(results):
+    assert "--input-path " in result.stdout
+    assert " Path of input data " in result.stdout
+
+
 def tests_write_csv_probability_entrypoint():
     with requests_mock.Mocker() as m:
         m.get(

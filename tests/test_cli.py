@@ -8,11 +8,11 @@ runner = CliRunner()
 
 def test_call_entrypoint():
     result = runner.invoke(cli, "--help")
-    assert result.exit_code == 0
+    assert_successful_command(result)
     assert "write-probability-progress-figure " in result.stdout
 
     result = runner.invoke(cli, ["write-csv-probability", "--help"])
-    assert result.exit_code == 0
+    assert_successful_command(result)
     assert_input_path_argument(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstrap by window " in result.stdout
@@ -22,7 +22,7 @@ def test_call_entrypoint():
     assert " Number of months by window " in result.stdout
 
     result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
-    assert result.exit_code == 0
+    assert_successful_command(result)
     assert_input_path_argument(result)
     assert_output_path_argument(result)
 

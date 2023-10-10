@@ -27,6 +27,10 @@ def test_call_entrypoint():
     assert_output_path_argument(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
+    assert_command_with_input_and_output_paths(result)
+
+
+def assert_command_with_input_and_output_paths(result):
     assert_successful_command(result)
     assert_input_path_argument(result)
     assert_output_path_argument(result)

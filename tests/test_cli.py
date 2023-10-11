@@ -111,3 +111,26 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
         assert m.call_count == 1
         expected_url = "http://eradication_progress:10000/plot_cpue_vs_cum_captures?input_path=probabilities.csv&output_path=figure.png"
         assert m.request_history[0].url == expected_url
+
+
+def tests_plot_comparative_catch_curves():
+    with requests_mock.Mocker() as m:
+        m.get(
+            "http://eradication_progress:10000/plot_comparative_catch_curves", text="Response 200"
+        )
+
+        runner.invoke(
+            cli,
+            [
+                "plot-comparative-catch-curves",
+                "--socorro-path",
+                "cumulatives_socorro.csv",
+                "--guadalupe-path",
+                "cumulatives_guadalupe.csv",
+                "--output-path",
+                "figure.png",
+            ],
+        )
+        assert m.call_count == 1
+        expected_url = "http://eradication_progress:10000/plot_comparative_catch_curves?socorro_path=cumulatives_socorro.csv&guadalupe_path=cumulatives_guadalupe.csv&output_path=figure.png"
+        assert m.request_history[0].url == expected_url

@@ -22,7 +22,7 @@ def write_csv_probability(
         window_length=window_length,
     )
     response = requests.get(url)
-    print(response.status_code)
+    print(response.raise_for_status())
     return response
 
 
@@ -39,7 +39,7 @@ def write_probability_progress_figure(
         output_path=output_path,
     )
     response = requests.get(url)
-    print(response.status_code)
+    print(response.raise_for_status())
     return response
 
 
@@ -75,5 +75,5 @@ def plot_cpue_vs_cum_captures(
         output_path=output_path,
     )
     response = requests.get(url)
-    print(response.status_code)
+    print(response.raise_for_status())
     return response

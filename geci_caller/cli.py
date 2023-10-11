@@ -44,6 +44,25 @@ def write_probability_progress_figure(
 
 
 @cli.command()
+def plot_comparative_catch_curves(
+    socorro_path: str = typer.Option(help="Path of input data"),
+    guadalupe_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/plot_comparative_catch_curves",
+        socorro_path=socorro_path,
+        guadalupe_path=guadalupe_path,
+        output_path=output_path,
+    )
+    response = requests.get(url)
+    print(response.raise_for_status())
+    return response
+
+
+@cli.command()
 def plot_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),

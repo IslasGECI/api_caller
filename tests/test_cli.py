@@ -50,11 +50,6 @@ def assert_output_path_argument(result):
 
 def tests_write_csv_probability_entrypoint():
     with requests_mock.Mocker() as m:
-        m.get(
-            "http://eradication_progress:10000/write_effort_and_captures_with_probability",
-            text="Response 200",
-        )
-
         runner.invoke(
             cli,
             [
@@ -77,8 +72,6 @@ def tests_write_csv_probability_entrypoint():
 
 def tests_write_probability_figure_entrypoint():
     with requests_mock.Mocker() as m:
-        m.get("http://eradication_progress:10000/write_probability_figure", text="Response 200")
-
         runner.invoke(
             cli,
             [
@@ -96,8 +89,6 @@ def tests_write_probability_figure_entrypoint():
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():
     with requests_mock.Mocker() as m:
-        m.get("http://eradication_progress:10000/plot_cpue_vs_cum_captures", text="Response 200")
-
         runner.invoke(
             cli,
             [
@@ -115,10 +106,6 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
 
 def tests_plot_comparative_catch_curves():
     with requests_mock.Mocker() as m:
-        m.get(
-            "http://eradication_progress:10000/plot_comparative_catch_curves", text="Response 200"
-        )
-
         runner.invoke(
             cli,
             [

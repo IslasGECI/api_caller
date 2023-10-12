@@ -23,7 +23,6 @@ def write_csv_probability(
     )
     response = requests.get(url)
     print(response.raise_for_status())
-    return response
 
 
 @cli.command()
@@ -40,7 +39,6 @@ def write_probability_progress_figure(
     )
     response = requests.get(url)
     print(response.raise_for_status())
-    return response
 
 
 @cli.command()
@@ -58,8 +56,7 @@ def plot_comparative_catch_curves(
         output_path=output_path,
     )
     response = requests.get(url)
-    print(response.raise_for_status())
-    return response
+    print(response.status_code)
 
 
 @cli.command()

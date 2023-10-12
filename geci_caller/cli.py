@@ -74,11 +74,4 @@ def plot_cpue_vs_cum_captures(
         input_path=input_path,
         output_path=output_path,
     )
-    response = requests.get(url)
-    is_ok = response.ok
-    if is_ok:
-        message = "OK"
-    else:
-        message = response.raise_for_status()
-    print(message)
-    return response
+    requests.get(url)

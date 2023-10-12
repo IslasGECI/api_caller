@@ -22,7 +22,7 @@ def write_csv_probability(
         window_length=window_length,
     )
     response = requests.get(url)
-    print(response.raise_for_status())
+    print(response.status_code)
 
 
 @cli.command()
@@ -38,7 +38,7 @@ def write_probability_progress_figure(
         output_path=output_path,
     )
     response = requests.get(url)
-    print(response.raise_for_status())
+    print(response.status_code)
 
 
 @cli.command()

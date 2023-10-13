@@ -27,6 +27,13 @@ def test_call_entrypoint():
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)
 
+    result = runner.invoke(cli, ["plot-comparative-catch-curves", "--help"])
+    assert "--socorro-path " in result.stdout
+    assert " Path of Socorro data " in result.stdout
+    assert "--guadalupe-path " in result.stdout
+    assert " Path of Guadalupe data " in result.stdout
+    assert_output_path_argument(result)
+
 
 def assert_command_with_input_and_output_paths(result):
     assert_successful_command(result)

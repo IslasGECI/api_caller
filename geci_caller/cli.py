@@ -43,8 +43,8 @@ def write_probability_progress_figure(
 
 @cli.command()
 def plot_comparative_catch_curves(
-    socorro_path: str = typer.Option(help="Path of input data"),
-    guadalupe_path: str = typer.Option(help="Path of input data"),
+    socorro_path: str = typer.Option(help="Path of Socorro data"),
+    guadalupe_path: str = typer.Option(help="Path of Guadalupe data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     url = construct_entrypoint_url(

@@ -72,7 +72,7 @@ tests:
 	pytest --verbose
 
 test-services: install
-	geci-caller plot_cumulative_series_cpue_by_flight \
+	geci-caller plot-cumulative-series-cpue-by-flight \
 		--input-path data/feral_goat_capture_effort.csv \
 		--output-path goat_cpue_figure.png
 

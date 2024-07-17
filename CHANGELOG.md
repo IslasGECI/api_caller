@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.8.0] - 2024-07-17
+
+### Added
+
+- Add command,`plot-cumulative-series-cpue-by-flight`, for a entrypoint from `eradication_data_requirements` api.
+
 ## [0.7.0] - 2023-10-12
 
 ### Added

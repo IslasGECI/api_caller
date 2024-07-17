@@ -47,9 +47,25 @@ jobs:
         verbose: true
     - name: Evalúa resistencia a mutaciones
       run: docker run islasgeci/api_caller:latest make mutants
+  test-service:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
+      - name: Run docker-compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "docker-compose.yml"
+
+      - name: Execute tests in the running services
+        run: |
+          docker-compose run islasgeci make test-services
+      - name: Teardown services
+        run: |
+          docker-compose down
   deploy-image-and-package:
-    needs: run-tests
+    needs: run-tests test-service
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo

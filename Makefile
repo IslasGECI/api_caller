@@ -25,7 +25,7 @@ define lint
         ${1}
 endef
 
-check: setup
+check:
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}

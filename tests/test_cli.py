@@ -95,6 +95,9 @@ def tests_write_probability_figure_entrypoint():
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
+    result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
+    assert_command_with_input_and_output_paths(result)
+
     with requests_mock.Mocker() as m:
         runner.invoke(
             cli,

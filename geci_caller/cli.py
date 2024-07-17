@@ -72,3 +72,18 @@ def plot_cpue_vs_cum_captures(
         output_path=output_path,
     )
     requests.get(url)
+
+
+@cli.command()
+def plot_cumulative_series_cpue_by_flight(
+    input_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/plot_cumulative_series_cpue_by_flight",
+        input_path=input_path,
+        output_path=output_path,
+    )
+    requests.get(url)

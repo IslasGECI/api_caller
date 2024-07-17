@@ -107,7 +107,7 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
             ],
         )
         assert m.call_count == 1
-        expected_url = "http://eradication_progress:10000/plot-cumulative-series-cpue-by-flight?input_path=probabilities.csv&output_path=figure.png"
+        expected_url = "http://eradication_progress:10000/plot_cumulative_series_cpue_by_flight?input_path=probabilities.csv&output_path=figure.png"
         assert m.request_history[0].url == expected_url
 
 

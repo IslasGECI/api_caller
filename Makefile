@@ -71,6 +71,11 @@ setup: clean install
 tests:
 	pytest --verbose
 
+test-services: install
+	geci-caller plot_cumulative_series_cpue_by_flight \
+		--input-path data/feral_goat_capture_effort.csv \
+		--output-path reports/goat_cpue_figure.png
+
 red: format
 	pytest --verbose \
 	&& git restore tests/*.py \

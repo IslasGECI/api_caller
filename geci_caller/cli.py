@@ -8,8 +8,7 @@ cli = typer.Typer()
 @cli.command()
 def write_csv_probability(
     input_path: str = typer.Option(help="Path of input data"),
-    bootstrapping_number: int = typer.Option(
-        help="Number of bootstrap by window"),
+    bootstrapping_number: int = typer.Option(help="Number of bootstrap by window"),
     output_path: str = typer.Option(help="Path of csv file to write"),
     window_length: int = typer.Option(help="Number of months by window"),
 ):

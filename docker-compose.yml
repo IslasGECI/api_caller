@@ -8,3 +8,30 @@ services:
     command: bash
     volumes:
       - $PWD:/workdir
+    networks:
+      - geci
+    depends_on:
+      - eradication_progress
+    profiles:
+      - apis
+
+  eradication_progress:
+    image: islasgeci/eradication_data_requirements:latest
+    entrypoint:
+      [
+        "uvicorn",
+        "eradication_data_requirements.api:api",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "10000"
+      ]
+    volumes:
+      - $PWD/data:/workdir/data
+      - $PWD/reports:/workdir/reports
+    networks:
+      - geci
+
+networks:
+  geci:
+    name: internal_api_caller

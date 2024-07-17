@@ -94,6 +94,23 @@ def tests_write_probability_figure_entrypoint():
         assert m.request_history[0].url == expected_url
 
 
+def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
+    with requests_mock.Mocker() as m:
+        runner.invoke(
+            cli,
+            [
+                "plot-cumulative-series-cpue-by-flight",
+                "--input-path",
+                "probabilities.csv",
+                "--output-path",
+                "figure.png",
+            ],
+        )
+        assert m.call_count == 1
+        expected_url = "http://eradication_progress:10000/plot-cumulative-series-cpue-by-flight?input_path=probabilities.csv&output_path=figure.png"
+        assert m.request_history[0].url == expected_url
+
+
 def tests_plot_cpue_vs_cum_captures_entrypoint():
     with requests_mock.Mocker() as m:
         runner.invoke(

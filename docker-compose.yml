@@ -28,7 +28,6 @@ services:
       ]
     volumes:
       - $PWD/tests/data:/workdir/data
-      - $PWD/reports:/workdir/reports
     networks:
       - geci
 

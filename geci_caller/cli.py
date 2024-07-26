@@ -60,6 +60,23 @@ def plot_comparative_catch_curves(
 
 
 @cli.command()
+def plot_custom_cpue_vs_cum_captures(
+    input_path: str = typer.Option(help="Path of input data"),
+    config_path: str = typer.Option(help="Path of config file"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/plot_custom_cpue_vs_cum_captures",
+        input_path=input_path,
+        config_path=config_path,
+        output_path=output_path,
+    )
+    requests.get(url)
+
+
+@cli.command()
 def plot_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),

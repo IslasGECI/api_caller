@@ -1,4 +1,4 @@
-from geci_caller import cli, get_eradication_progress
+from geci_caller import cli
 
 import requests_mock
 from typer.testing import CliRunner

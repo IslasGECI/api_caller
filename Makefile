@@ -49,7 +49,7 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
-init: setup tests git_config
+init: git_config setup tests
 
 git_config:
 	git config --global --add safe.directory /workdir

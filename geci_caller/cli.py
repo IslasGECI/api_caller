@@ -73,7 +73,8 @@ def plot_custom_cpue_vs_cum_captures(
 
 def get_eradication_progress(entrypoint_name, **kwargs):
     url = construct_entrypoint_url("eradication_progress", 10000, entrypoint_name, **kwargs)
-    requests.get(url)
+    response = requests.get(url)
+    print(response.status_code)
 
 
 @cli.command()
@@ -88,7 +89,8 @@ def plot_cpue_vs_cum_captures(
         input_path=input_path,
         output_path=output_path,
     )
-    requests.get(url)
+    response = requests.get(url)
+    print(response.status_code)
 
 
 @cli.command()

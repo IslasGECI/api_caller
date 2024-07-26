@@ -131,6 +131,28 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
         assert m.request_history[0].url == expected_url
 
 
+def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
+    with requests_mock.Mocker() as m:
+        input_path = "probabilities.csv"
+        config_path = "config_plot.json"
+        output_path = "figure.png"
+        runner.invoke(
+            cli,
+            [
+                "plot-custom-cpue-vs-cum-captures",
+                "--input-path",
+                input_path,
+                "--config-path",
+                config_path,
+                "--output-path",
+                output_path,
+            ],
+        )
+        assert m.call_count == 1
+        expected_url = f"http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures?input_path={input_path}&config_path={config_path}&output_path={output_path}"
+        assert m.request_history[0].url == expected_url
+
+
 def tests_plot_comparative_catch_curves():
     with requests_mock.Mocker() as m:
         runner.invoke(

@@ -65,6 +65,10 @@ def plot_custom_cpue_vs_cum_captures(
     config_path: str = typer.Option(help="Path of config file"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
+    construct_and_get(input_path, config_path, output_path)
+
+
+def construct_and_get(input_path, config_path, output_path):
     url = construct_entrypoint_url(
         "eradication_progress",
         10000,

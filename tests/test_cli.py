@@ -136,7 +136,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
         input_path = "probabilities.csv"
         config_path = "config_plot.json"
         output_path = "figure.png"
-        runner.invoke(
+        result = runner.invoke(
             cli,
             [
                 "plot-custom-cpue-vs-cum-captures",
@@ -148,9 +148,13 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
                 output_path,
             ],
         )
+        print(result)
+
         assert m.call_count == 1
         expected_url = f"http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures?input_path={input_path}&config_path={config_path}&output_path={output_path}"
         assert m.request_history[0].url == expected_url
+
+        print(m)
 
 
 def tests_plot_comparative_catch_curves():

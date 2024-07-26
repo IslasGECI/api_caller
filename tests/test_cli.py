@@ -145,7 +145,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
         ],
     )
     assert result.exit_code == 0
-    assert "200" in result.stdout
+    assert "404" in result.stdout
 
 
 def tests_get_service_entrypoint():

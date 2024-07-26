@@ -1,4 +1,14 @@
-from geci_caller import construct_entrypoint_url
+from geci_caller import construct_entrypoint_url, get_eradication_progress
+
+import requests_mock
+
+
+def tests_get_service_entrypoint():
+    with requests_mock.Mocker() as m:
+        entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
+        m.get(f"http://eradication_progress:10000{entrypoint_name}")
+        get_eradication_progress(entrypoint_name)
+        assert m.call_count == 1
 
 
 def test_construct_entrypoint_url():

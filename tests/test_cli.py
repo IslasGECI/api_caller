@@ -148,14 +148,6 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert "404" in result.stdout
 
 
-def tests_get_service_entrypoint():
-    with requests_mock.Mocker() as m:
-        entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
-        m.get(f"http://eradication_progress:10000{entrypoint_name}")
-        get_eradication_progress(entrypoint_name)
-        assert m.call_count == 1
-
-
 def tests_plot_comparative_catch_curves():
     with requests_mock.Mocker() as m:
         runner.invoke(

@@ -66,12 +66,12 @@ def plot_custom_cpue_vs_cum_captures(
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
-    construct_and_get(
+    get_eradication_progress(
         entrypoint_name, input_path=input_path, config_path=config_path, output_path=output_path
     )
 
 
-def construct_and_get(entrypoint_name, **kwargs):
+def get_eradication_progress(entrypoint_name, **kwargs):
     url = construct_entrypoint_url("eradication_progress", 10000, entrypoint_name, **kwargs)
     requests.get(url)
 

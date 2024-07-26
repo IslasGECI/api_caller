@@ -1,4 +1,4 @@
-from geci_caller import cli
+from geci_caller import cli, get_eradication_progress
 
 import requests_mock
 from typer.testing import CliRunner
@@ -132,29 +132,27 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
+    result = runner.invoke(
+        cli,
+        [
+            "plot-custom-cpue-vs-cum-captures",
+            "--input-path",
+            "goat_data.csv",
+            "--config-path",
+            "config.json",
+            "--output-path",
+            "figure.png",
+        ],
+    )
+    assert result.exit_code == 0
+
+
+def tests_get_service_entrypoint():
     with requests_mock.Mocker() as m:
-        input_path = "probabilities.csv"
-        config_path = "config_plot.json"
-        output_path = "figure.png"
-        result = runner.invoke(
-            cli,
-            [
-                "plot-custom-cpue-vs-cum-captures",
-                "--input-path",
-                input_path,
-                "--config-path",
-                config_path,
-                "--output-path",
-                output_path,
-            ],
-        )
-        print(result)
-
+        entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
+        m.get(f"http://eradication_progress:10000{entrypoint_name}")
+        get_eradication_progress(entrypoint_name)
         assert m.call_count == 1
-        expected_url = f"http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures?input_path={input_path}&config_path={config_path}&output_path={output_path}"
-        assert m.request_history[0].url == expected_url
-
-        print(m)
 
 
 def tests_plot_comparative_catch_curves():

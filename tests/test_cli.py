@@ -113,7 +113,9 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():
     with requests_mock.Mocker() as m:
-        runner.invoke(
+        entrypoint = "http://eradication_progress:10000/plot_cpue_vs_cum_captures"
+        m.get(entrypoint)
+        result = runner.invoke(
             cli,
             [
                 "plot-cpue-vs-cum-captures",
@@ -124,7 +126,7 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
             ],
         )
         assert m.call_count == 1
-        expected_url = "http://eradication_progress:10000/plot_cpue_vs_cum_captures?input_path=probabilities.csv&output_path=figure.png"
+        assert "200" in result.stdout
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
@@ -151,7 +153,7 @@ def tests_plot_comparative_catch_curves():
     with requests_mock.Mocker() as m:
         entrypoint = "http://eradication_progress:10000/plot_comparative_catch_curves"
         m.get(entrypoint)
-        runner.invoke(
+        result = runner.invoke(
             cli,
             [
                 "plot-comparative-catch-curves",
@@ -164,3 +166,4 @@ def tests_plot_comparative_catch_curves():
             ],
         )
         assert m.call_count == 1
+        assert "200" in result.stdout

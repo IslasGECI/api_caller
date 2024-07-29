@@ -92,7 +92,6 @@ def tests_write_probability_figure_entrypoint():
             ],
         )
         assert m.call_count == 1
-        expected_url = "http://eradication_progress:10000/write_probability_figure?input_path=probabilities.csv&output_path=figure.png"
         assert "200" in result.stdout
 
 

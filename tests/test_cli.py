@@ -132,24 +132,29 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
-    result = runner.invoke(
-        cli,
-        [
-            "plot-custom-cpue-vs-cum-captures",
-            "--input-path",
-            "goat_data.csv",
-            "--config-path",
-            "config.json",
-            "--output-path",
-            "figure.png",
-        ],
-    )
-    assert result.exit_code == 0
-    assert "404" in result.stdout
+    with requests_mock.Mocker() as m:
+        entrypoint = "http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures"
+        m.get(entrypoint)
+        result = runner.invoke(
+            cli,
+            [
+                "plot-custom-cpue-vs-cum-captures",
+                "--input-path",
+                "goat_data.csv",
+                "--config-path",
+                "config.json",
+                "--output-path",
+                "figure.png",
+            ],
+        )
+        assert result.exit_code == 0
+        assert "200" in result.stdout
 
 
 def tests_plot_comparative_catch_curves():
     with requests_mock.Mocker() as m:
+        entrypoint = "http://eradication_progress:10000/plot_comparative_catch_curves"
+        m.get(entrypoint)
         runner.invoke(
             cli,
             [
@@ -163,5 +168,5 @@ def tests_plot_comparative_catch_curves():
             ],
         )
         assert m.call_count == 1
-        expected_url = "http://eradication_progress:10000/plot_comparative_catch_curves?socorro_path=cumulatives_socorro.csv&guadalupe_path=cumulatives_guadalupe.csv&output_path=figure.png"
+        expected_url = f"{entrypoint}?socorro_path=cumulatives_socorro.csv&guadalupe_path=cumulatives_guadalupe.csv&output_path=figure.png"
         assert m.request_history[0].url == expected_url

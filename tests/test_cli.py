@@ -6,6 +6,27 @@ from typer.testing import CliRunner
 runner = CliRunner()
 
 
+def tests_write_population_status():
+    result = runner.invoke(cli, ["write-population-status", "--help"])
+    assert_command_with_input_and_output_paths(result)
+
+    with requests_mock.Mocker() as m:
+        entrypoint = "http://eradication_progress:10000/write_population_status"
+        m.get(entrypoint)
+        result = runner.invoke(
+            cli,
+            [
+                "write-population-status",
+                "--input-path",
+                "effort_captures.csv",
+                "--output-path",
+                "population_status.json",
+            ],
+        )
+        assert m.call_count == 1
+        assert "200" in result.stdout
+
+
 def test_call_entrypoint():
     result = runner.invoke(cli, "--help")
     assert_successful_command(result)

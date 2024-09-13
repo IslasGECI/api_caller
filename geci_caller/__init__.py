@@ -1,5 +1,5 @@
 """A template Python module"""
 
-__version__ = "0.9.0"
+__version__ = "0.10.0"
 from .call_api import *  # noqa
 from .cli import *  # noqa

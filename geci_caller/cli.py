@@ -6,6 +6,15 @@ cli = typer.Typer()
 
 
 @cli.command()
+def write_population_status(
+    input_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    entrypoint_name = "/write_population_status"
+    get_eradication_progress(entrypoint_name, input_path=input_path, output_path=output_path)
+
+
+@cli.command()
 def write_csv_probability(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstrap by window"),

@@ -49,9 +49,9 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
-init: git_config setup tests
+init: init_git setup tests
 
-git_config:
+init_git:
 	git config --global --add safe.directory /workdir
 	git config --global user.name "Ciencia de Datos • GECI"
 	git config --global user.email "ciencia.datos@islas.org.mx"
@@ -75,6 +75,10 @@ test-services: install
 	geci-caller plot-cumulative-series-cpue-by-flight \
 		--input-path data/feral_goat_capture_effort.csv \
 		--output-path goat_cpue_figure.png
+	geci-caller write-population-status \
+		--input-path data/feral_goat_capture_effort.csv \
+		--bootstrapping-number 10 \
+		--output-path population_status.json
 
 red: format
 	pytest --verbose \
@@ -84,7 +88,7 @@ red: format
 
 green: format
 	pytest --verbose \
-	&& (git add ${module}/*.py tests/*.py && git commit -m "✅ Pass tests") \
+	&& (git add ${module}/*.py && git commit -m "✅ Pass tests") \
 	|| git restore ${module}/*.py
 	chmod g+w -R .
 

@@ -6,6 +6,21 @@ cli = typer.Typer()
 
 
 @cli.command()
+def filter_by_method(
+    input_path: str = typer.Option(help="Path of input data"),
+    method: str = typer.Option(help="Extraction method"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    entrypoint_name = "/filter_by_method"
+    get_eradication_progress(
+        entrypoint_name,
+        input_path=input_path,
+        method=method,
+        output_path=output_path,
+    )
+
+
+@cli.command()
 def write_population_status(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),

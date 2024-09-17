@@ -75,10 +75,10 @@ jobs:
 
       - name: Execute tests in the running services
         run: |
-          docker-compose run islasgeci make test-services
+          docker compose run islasgeci make test-services
       - name: Teardown services
         run: |
-          docker-compose down
+          docker compose down
   deploy-image-and-package:
     needs: [run-tests, test-service]
     runs-on: ubuntu-latest

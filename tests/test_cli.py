@@ -19,6 +19,8 @@ def tests_write_population_status():
                 "write-population-status",
                 "--input-path",
                 "effort_captures.csv",
+                "--bootstrap-number",
+                10,
                 "--output-path",
                 "population_status.json",
             ],

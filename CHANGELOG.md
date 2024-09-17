@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.11.0] - 2024-09-17
+
+### Added
+
+- Add command,`filter-by-method`, for a entrypoint from `eradication_data_requirements` api.
+
 ## [0.10.1] - 2024-09-17
 
 ### Fixed

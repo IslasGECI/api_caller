@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.10.1] - 2024-09-17
+
+### Fixed
+
+- Fix command argument `bootstrapping-number` for `write-population-status`.
+
 ## [0.10.0] - 2024-09-13
 
 ### Added

@@ -6,6 +6,13 @@ from typer.testing import CliRunner
 runner = CliRunner()
 
 
+def tests_write_aerial_monitoring():
+    result = runner.invoke(cli, ["write-aerial-monitoring", "--help"])
+    assert_command_with_input_and_output_paths(result)
+    assert "--bootsraping-number " in result.stdout
+    assert " Number of boostraps " in result.stdout
+
+
 def tests_filter_by_method():
     result = runner.invoke(cli, ["filter-by-method", "--help"])
     assert_command_with_input_and_output_paths(result)

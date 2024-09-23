@@ -79,6 +79,10 @@ test-services: install
 		--input-path data/feral_goat_capture_effort.csv \
 		--bootstrapping-number 10 \
 		--output-path population_status.json
+	geci-caller write-aerial-monitoring \
+		--input-path data/feral_goat_aerial_monitoring.csv \
+		--bootstrapping-number 10 \
+		--output-path aerial_status.json
 
 red: format
 	pytest --verbose \

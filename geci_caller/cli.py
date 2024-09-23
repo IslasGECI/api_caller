@@ -21,6 +21,21 @@ def filter_by_method(
 
 
 @cli.command()
+def write_aerial_monitoring(
+    input_path: str = typer.Option(help="Path of input data"),
+    bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    entrypoint_name = "/write_aerial_monitoring"
+    get_eradication_progress(
+        entrypoint_name,
+        input_path=input_path,
+        bootstrapping_number=bootstrapping_number,
+        output_path=output_path,
+    )
+
+
+@cli.command()
 def write_population_status(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),

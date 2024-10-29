@@ -124,26 +124,6 @@ def tests_plot_comparative_catch_curves():
     assert_output_path_argument(result)
 
 
-def assert_command_with_input_and_output_paths(result):
-    assert_successful_command(result)
-    assert_input_path_argument(result)
-    assert_output_path_argument(result)
-
-
-def assert_successful_command(result):
-    assert result.exit_code == 0
-
-
-def assert_input_path_argument(results):
-    assert "--input-path " in results.stdout
-    assert " Path of input data " in results.stdout
-
-
-def assert_output_path_argument(result):
-    assert "--output-path " in result.stdout
-    assert " Path of figure to write " in result.stdout
-
-
 def tests_write_csv_probability_entrypoint():
     with requests_mock.Mocker() as m:
         entrypoint = "http://eradication_progress:10000/write_effort_and_captures_with_probability"
@@ -265,3 +245,23 @@ def tests_plot_comparative_catch_curves():
         )
         assert m.call_count == 1
         assert "200" in result.stdout
+
+
+def assert_command_with_input_and_output_paths(result):
+    assert_successful_command(result)
+    assert_input_path_argument(result)
+    assert_output_path_argument(result)
+
+
+def assert_successful_command(result):
+    assert result.exit_code == 0
+
+
+def assert_input_path_argument(results):
+    assert "--input-path " in results.stdout
+    assert " Path of input data " in results.stdout
+
+
+def assert_output_path_argument(result):
+    assert "--output-path " in result.stdout
+    assert " Path of figure to write " in result.stdout

@@ -121,7 +121,7 @@ def tests_plot_comparative_catch_curves():
     assert " Path of Socorro data " in result.stdout
     assert "--guadalupe-path " in result.stdout
     assert " Path of Guadalupe data " in result.stdout
-    assert_output_path_argument(result)
+    assert_command_with_input_and_output_paths(result)
 
 
 def tests_write_csv_probability_entrypoint():

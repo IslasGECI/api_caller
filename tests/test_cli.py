@@ -11,6 +11,19 @@ def tests_write_aerial_monitoring():
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout
+    result = runner.invoke(
+        cli,
+        [
+            "write-aerial-monitoring",
+            "--input-path",
+            "effort_captures.csv",
+            "--bootstrapping-number",
+            10,
+            "--output-path",
+            "filtered_data.json",
+        ],
+    )
+    assert "500" in result.stdout
 
 
 def tests_filter_by_method():
@@ -40,6 +53,7 @@ def tests_filter_by_method():
 def tests_write_population_status():
     result = runner.invoke(cli, ["write-population-status", "--help"])
     assert_command_with_input_and_output_paths(result)
+    assert " Number of bootstraps " in result.stdout
 
     with requests_mock.Mocker() as m:
         entrypoint = "http://eradication_progress:10000/write_population_status"
@@ -75,7 +89,8 @@ def test_call_entrypoint():
     assert "--window-length " in result.stdout
     assert " Number of months by window " in result.stdout
 
-    result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
+    result = runner.invoke(
+        cli, ["write-probability-progress-figure", "--help"])
     assert_command_with_input_and_output_paths(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
@@ -150,7 +165,8 @@ def tests_write_probability_figure_entrypoint():
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
-    result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
+    result = runner.invoke(
+        cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
     assert_command_with_input_and_output_paths(result)
 
     with requests_mock.Mocker() as m:
@@ -189,6 +205,11 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
+    result = runner.invoke(
+        cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
+    assert_command_with_input_and_output_paths(result)
+    assert " Path of config file " in result.stdout
+
     with requests_mock.Mocker() as m:
         entrypoint = "http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures"
         m.get(entrypoint)

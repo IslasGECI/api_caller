@@ -113,7 +113,10 @@ def tests_plot_cpue_vs_cum_captures():
     result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
-    result = runner.invoke(cli, ["plot-comparative-catch-curves", "--help"])
+
+def tests_plot_comparative_catch_curves():
+    command = "plot-comparative-catch-curves"
+    result = get_command_help(command)
     assert "--socorro-path " in result.stdout
     assert " Path of Socorro data " in result.stdout
     assert "--guadalupe-path " in result.stdout

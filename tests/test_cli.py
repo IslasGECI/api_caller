@@ -40,7 +40,8 @@ def tests_write_aerial_monitoring():
 
 
 def tests_filter_by_method():
-    result = runner.invoke(cli, ["filter-by-method", "--help"])
+    command = "filter-by-method"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert " Extraction method " in result.stdout
 
@@ -50,7 +51,7 @@ def tests_filter_by_method():
         result = runner.invoke(
             cli,
             [
-                "filter-by-method",
+                command,
                 "--input-path",
                 "effort_captures.csv",
                 "--method",
@@ -64,7 +65,8 @@ def tests_filter_by_method():
 
 
 def tests_write_population_status():
-    result = runner.invoke(cli, ["write-population-status", "--help"])
+    command = "write-population-status"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert " Number of bootstraps " in result.stdout
 
@@ -74,7 +76,7 @@ def tests_write_population_status():
         result = runner.invoke(
             cli,
             [
-                "write-population-status",
+                command,
                 "--input-path",
                 "effort_captures.csv",
                 "--bootstrapping-number",

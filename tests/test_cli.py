@@ -103,7 +103,8 @@ def test_call_entrypoint():
 
 
 def tests_write_probability_progress_figure():
-    result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
+    command = "write-probability-progress-figure"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])

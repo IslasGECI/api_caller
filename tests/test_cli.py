@@ -16,6 +16,7 @@ def tests_write_aerial_monitoring():
 def tests_filter_by_method():
     result = runner.invoke(cli, ["filter-by-method", "--help"])
     assert_command_with_input_and_output_paths(result)
+    assert " Extraction method " in result.stdout
 
     with requests_mock.Mocker() as m:
         entrypoint = "http://eradication_progress:10000/filter_by_method"

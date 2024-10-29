@@ -26,13 +26,28 @@ def write_aerial_monitoring(
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    entrypoint_name = "/write_aerial_monitoring"
-    get_eradication_progress(
-        entrypoint_name,
+    get_eradication_progress_write_aerial_monitoring(
         input_path=input_path,
         bootstrapping_number=bootstrapping_number,
         output_path=output_path,
     )
+
+
+def construct_entrypoint_url_write_aerial_monitoring(input_path, bootstrapping_number, output_path):
+    return construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/write_aerial_monitoring",
+        input_path=input_path,
+        bootstrapping_number=bootstrapping_number,
+        output_path=output_path,
+    )
+
+
+def get_eradication_progress_write_aerial_monitoring(**kwargs):
+    url = construct_entrypoint_url_write_aerial_monitoring(**kwargs)
+    response = requests.get(url)
+    print(response.status_code)
 
 
 @cli.command()

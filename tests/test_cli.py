@@ -90,11 +90,8 @@ def tests_write_population_status():
 
 
 def test_call_entrypoint():
-    result = runner.invoke(cli, "--help")
-    assert_successful_command(result)
-    assert "write-probability-progress-figure " in result.stdout
-
-    result = runner.invoke(cli, ["write-csv-probability", "--help"])
+    command = "write-csv-probability"
+    result = get_command_help(command)
     assert_successful_command(result)
     assert_input_path_argument(result)
     assert "--bootstrapping-number " in result.stdout
@@ -104,6 +101,8 @@ def test_call_entrypoint():
     assert "--window-length " in result.stdout
     assert " Number of months by window " in result.stdout
 
+
+def tests_write_probability_progress_figure():
     result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
     assert_command_with_input_and_output_paths(result)
 

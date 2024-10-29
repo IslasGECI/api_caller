@@ -107,7 +107,10 @@ def tests_write_probability_progress_figure():
     result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
-    result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
+
+def tests_plot_cpue_vs_cum_captures():
+    command = "plot-cpue-vs-cum-captures"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
     result = runner.invoke(cli, ["plot-comparative-catch-curves", "--help"])

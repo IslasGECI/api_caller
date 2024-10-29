@@ -8,25 +8,26 @@ runner = CliRunner()
 
 def tests_write_bootstrap_progress_intervals_json():
     command = "write-bootstrap-progress-intervals"
-    result = get_call_command_help(command)
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout
 
 
-def get_call_command_help(command: str):
+def get_command_help(command: str):
     return runner.invoke(cli, [command, "--help"])
 
 
 def tests_write_aerial_monitoring():
-    result = runner.invoke(cli, ["write-aerial-monitoring", "--help"])
+    command = "write-aerial-monitoring"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout
     result = runner.invoke(
         cli,
         [
-            "write-aerial-monitoring",
+            command,
             "--input-path",
             "effort_captures.csv",
             "--bootstrapping-number",

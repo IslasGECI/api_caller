@@ -7,7 +7,8 @@ runner = CliRunner()
 
 
 def tests_write_bootstrap_progress_intervals_json():
-    result = runner.invoke(cli, ["write-bootstrap-progress-intervals", "--help"])
+    command = "write-bootstrap-progress-intervals"
+    result = get_call_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout

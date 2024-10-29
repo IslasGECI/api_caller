@@ -6,6 +6,13 @@ from typer.testing import CliRunner
 runner = CliRunner()
 
 
+def tests_write_bootstrap_progress_intervals_json():
+    result = runner.invoke(cli, ["write-bootstrap-progress-intervals", "--help"])
+    assert_command_with_input_and_output_paths(result)
+    assert "--bootstrapping-number " in result.stdout
+    assert " Number of bootstraps " in result.stdout
+
+
 def tests_write_aerial_monitoring():
     result = runner.invoke(cli, ["write-aerial-monitoring", "--help"])
     assert_command_with_input_and_output_paths(result)
@@ -89,8 +96,7 @@ def test_call_entrypoint():
     assert "--window-length " in result.stdout
     assert " Number of months by window " in result.stdout
 
-    result = runner.invoke(
-        cli, ["write-probability-progress-figure", "--help"])
+    result = runner.invoke(cli, ["write-probability-progress-figure", "--help"])
     assert_command_with_input_and_output_paths(result)
 
     result = runner.invoke(cli, ["plot-cpue-vs-cum-captures", "--help"])
@@ -165,8 +171,7 @@ def tests_write_probability_figure_entrypoint():
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
-    result = runner.invoke(
-        cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
+    result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
     assert_command_with_input_and_output_paths(result)
 
     with requests_mock.Mocker() as m:
@@ -205,8 +210,7 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
-    result = runner.invoke(
-        cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
+    result = runner.invoke(cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)
     assert " Path of config file " in result.stdout
 

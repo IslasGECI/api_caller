@@ -13,6 +13,10 @@ def tests_write_bootstrap_progress_intervals_json():
     assert " Number of bootstraps " in result.stdout
 
 
+def get_call_command_help(command: str):
+    return runner.invoke(cli, [command, "--help"])
+
+
 def tests_write_aerial_monitoring():
     result = runner.invoke(cli, ["write-aerial-monitoring", "--help"])
     assert_command_with_input_and_output_paths(result)

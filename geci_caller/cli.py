@@ -6,6 +6,15 @@ cli = typer.Typer()
 
 
 @cli.command()
+def write_bootstrap_progress_intervals(
+    input_path: str = typer.Option(help="Path of input data"),
+    bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    pass
+
+
+@cli.command()
 def filter_by_method(
     input_path: str = typer.Option(help="Path of input data"),
     method: str = typer.Option(help="Extraction method"),

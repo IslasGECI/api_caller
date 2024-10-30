@@ -121,7 +121,26 @@ def tests_plot_comparative_catch_curves():
     assert " Path of Socorro data " in result.stdout
     assert "--guadalupe-path " in result.stdout
     assert " Path of Guadalupe data " in result.stdout
-    assert_command_with_input_and_output_paths(result)
+    assert_successful_command(result)
+    assert_output_path_argument(result)
+
+    with requests_mock.Mocker() as m:
+        entrypoint = "http://eradication_progress:10000/plot_comparative_catch_curves"
+        m.get(entrypoint)
+        result = runner.invoke(
+            cli,
+            [
+                "plot-comparative-catch-curves",
+                "--socorro-path",
+                "cumulatives_socorro.csv",
+                "--guadalupe-path",
+                "cumulatives_guadalupe.csv",
+                "--output-path",
+                "figure.png",
+            ],
+        )
+        assert m.call_count == 1
+        assert "200" in result.stdout
 
 
 def tests_write_csv_probability_entrypoint():
@@ -224,26 +243,6 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
             ],
         )
         assert result.exit_code == 0
-        assert "200" in result.stdout
-
-
-def tests_plot_comparative_catch_curves():
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/plot_comparative_catch_curves"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                "plot-comparative-catch-curves",
-                "--socorro-path",
-                "cumulatives_socorro.csv",
-                "--guadalupe-path",
-                "cumulatives_guadalupe.csv",
-                "--output-path",
-                "figure.png",
-            ],
-        )
-        assert m.call_count == 1
         assert "200" in result.stdout
 
 

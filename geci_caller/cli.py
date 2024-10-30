@@ -11,7 +11,13 @@ def write_bootstrap_progress_intervals(
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    pass
+    entrypoint_name = "/write_bootstrap_progress_intervals_json"
+    get_eradication_progress(
+        entrypoint_name,
+        input_path=input_path,
+        bootstrapping_number=bootstrapping_number,
+        output_path=output_path,
+    )
 
 
 @cli.command()

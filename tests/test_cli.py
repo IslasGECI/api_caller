@@ -12,6 +12,19 @@ def tests_write_bootstrap_progress_intervals_json():
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            "tests/data/feral_goat_capture_effort.csv",
+            "--bootstrapping-number",
+            10,
+            "--output-path",
+            "progress_intervals.json",
+        ],
+    )
+    assert "200" in result.stdout
 
 
 def get_command_help(command: str):

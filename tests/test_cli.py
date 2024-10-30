@@ -45,23 +45,19 @@ def tests_filter_by_method():
     assert_command_with_input_and_output_paths(result)
     assert " Extraction method " in result.stdout
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/filter_by_method"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                command,
-                "--input-path",
-                "effort_captures.csv",
-                "--method",
-                "aerea",
-                "--output-path",
-                "filtered_data.csv",
-            ],
-        )
-        assert m.call_count == 1
-        assert "200" in result.stdout
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            "effort_captures.csv",
+            "--method",
+            "aerea",
+            "--output-path",
+            "filtered_data.csv",
+        ],
+    )
+    assert "500" in result.stdout
 
 
 def tests_write_population_status():

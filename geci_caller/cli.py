@@ -66,8 +66,18 @@ def get_eradication_progress_write_aerial_monitoring(**kwargs):
 
 
 @cli.command()
-def write_population_status_from_mixed_methods():
-    pass
+def write_population_status_from_mixed_methods(
+    first_method_status: str = typer.Option(),
+    second_method_status: str = typer.Option(),
+    output_path: str = typer.Option(),
+):
+    entrypoint_name = "/write_population_status_from_mixed_methods"
+    get_eradication_progress(
+        entrypoint_name,
+        first_method_status=first_method_status,
+        second_method_status=second_method_status,
+        output_path=output_path,
+    )
 
 
 @cli.command()

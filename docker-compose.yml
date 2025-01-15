@@ -29,6 +29,11 @@ services:
       - $PWD/tests/data:/workdir/data
     networks:
       - geci
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://eradication_progress:10000/docs"]
+        interval: 2s
+        timeout: 2s
+        retries: 5
 
 networks:
   geci:

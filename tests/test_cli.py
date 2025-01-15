@@ -1,4 +1,5 @@
 from geci_caller import cli
+import geci_test_tools as gtt
 
 import requests_mock
 from typer.testing import CliRunner
@@ -9,8 +10,24 @@ runner = CliRunner()
 def tests_write_population_status_from_mixed_methods():
     command = "write-population-status-from-mixed-methods"
     result = get_command_help(command)
-    print(result)
     assert result.exit_code == 0
+
+    output_path = "population_status_mixed_methods.json"
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--first-method-status",
+            "tests/data/population_status_terrestrial_hunting.json",
+            "--second-method-status",
+            "tests/data/population_status_aerial_hunting.json",
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert "200" in result.stdout
+    gtt.assert_exist(output_path)
 
 
 def tests_write_bootstrap_progress_intervals_json():

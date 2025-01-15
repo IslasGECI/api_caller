@@ -66,6 +66,11 @@ def get_eradication_progress_write_aerial_monitoring(**kwargs):
 
 
 @cli.command()
+def write_population_status_from_mixed_methods():
+    pass
+
+
+@cli.command()
 def write_population_status(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),

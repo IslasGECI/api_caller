@@ -6,6 +6,13 @@ from typer.testing import CliRunner
 runner = CliRunner()
 
 
+def tests_write_population_status_from_mixed_methods():
+    command = "write-population-status-from-mixed-methods"
+    result = get_command_help(command)
+    print(result)
+    assert result.exit_code == 0
+
+
 def tests_write_bootstrap_progress_intervals_json():
     command = "write-bootstrap-progress-intervals"
     result = get_command_help(command)

@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.14.0] - 2025-01-15
+
+### Added
+
+- Add command,`write-population-status-from-mixed-methods`, for a entrypoint from `eradication_data_requirements` api.
+
 ## [0.13.0] - 2024-10-30
 
 ### Added

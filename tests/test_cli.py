@@ -1,7 +1,8 @@
 from geci_caller import cli
-
-import requests_mock
 from typer.testing import CliRunner
+import json
+import os
+import requests_mock
 
 runner = CliRunner()
 
@@ -96,27 +97,35 @@ def tests_filter_by_method():
 
 def tests_write_population_status():
     command = "write-population-status"
+    input_path = "tests/data/feral_goat_capture_effort.csv"
+    output_path = "population_status.json"
+
+    if os.path.exists(output_path):
+        os.remove(output_path)
+
     result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert " Number of bootstraps " in result.stdout
 
     with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/write_population_status"
-        m.get(entrypoint)
+        entrypoint = "http://islasgeci.org:100/write_population_status"
+        m.post(entrypoint, json={"n0": 0, "remanentes": 0})
         result = runner.invoke(
             cli,
             [
                 command,
                 "--input-path",
-                "effort_captures.csv",
+                input_path,
                 "--bootstrapping-number",
                 10,
                 "--output-path",
-                "population_status.json",
+                output_path,
             ],
         )
         assert m.call_count == 1
-        assert "200" in result.stdout
+        with open(output_path) as f:
+            data = json.load(f)
+            assert data == {"n0": 0, "remanentes": 0}
 
 
 def test_call_entrypoint():

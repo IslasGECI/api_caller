@@ -1,4 +1,5 @@
 from geci_caller import construct_entrypoint_url
+import json
 import requests
 import typer
 
@@ -87,12 +88,16 @@ def write_population_status(
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     entrypoint_name = "/write_population_status"
-    get_eradication_progress(
-        entrypoint_name,
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-    )
+    url = f"http://islasgeci.org:100{entrypoint_name}"
+    with open(input_path, "rb") as f:
+        response = requests.post(
+            url,
+            files={"file": f},
+            data={"bootstrapping_number": bootstrapping_number},
+        )
+    response.raise_for_status()
+    with open(output_path, "w") as out_file:
+        json.dump(response.json(), out_file, indent=2)
 
 
 @cli.command()

@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.15.0] - 2025-07-11
+
+### Changed
+- The command `write-population-status` is responsible to post the file content and write to disk the response.
+- Refactor `write-population-status` command to use HTTP POST with multipart/form-data, aligning with the updated API endpoint. Now sends the CSV as a file and receives JSON in response.
+
 ## [0.14.0] - 2025-01-15
 
 ### Added

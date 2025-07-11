@@ -10,7 +10,8 @@ services:
     networks:
       - geci
     depends_on:
-      - eradication_progress
+      eradication_progress:
+        condition: service_healthy
     profiles:
       - apis
 

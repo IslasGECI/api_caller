@@ -1,5 +1,6 @@
 from geci_caller import construct_entrypoint_url
 import json
+import pandas as pd
 import requests
 import typer
 
@@ -107,17 +108,21 @@ def write_csv_probability(
     output_path: str = typer.Option(help="Path of csv file to write"),
     window_length: int = typer.Option(help="Number of months by window"),
 ):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/write_effort_and_captures_with_probability",
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-        window_length=window_length,
-    )
-    response = requests.get(url)
-    print(response.status_code)
+    entrypoint_name = "/write_effort_and_captures_with_probability"
+    url = f"http://islasgeci.org:100{entrypoint_name}"
+    with open(input_path, "rb") as f:
+        response = requests.post(
+            url,
+            files={"file": f},
+            data={
+                "bootstrapping_number": bootstrapping_number,
+                "window_length": window_length,
+            },
+        )
+    response.raise_for_status()
+    json_data = response.json()
+    df = pd.DataFrame(json_data)
+    df.to_csv(output_path, index=False)
 
 
 @cli.command()

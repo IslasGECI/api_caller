@@ -10,10 +10,11 @@ description-file = "README.md"
 home-page = "https://github.com/IslasGECI/api_caller"
 module = "geci_caller"
 requires = [
+    "pandas",
     "requests",
     "requests_mock",
-    "types-requests",
     "typer[all]",
+    "types-requests",
 ]
 requires-python=">=3.9"
 

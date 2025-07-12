@@ -183,25 +183,45 @@ def tests_plot_comparative_catch_curves():
 
 
 def tests_write_csv_probability_entrypoint():
+    input_path = "tests/data/feral_goat_capture_effort.csv"
+    output_path = "probabilities.csv"
+
+    if os.path.exists(output_path):
+        os.remove(output_path)
+
     with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/write_effort_and_captures_with_probability"
-        m.get(entrypoint)
-        result = runner.invoke(
+        entrypoint = "http://islasgeci.org:100/write_effort_and_captures_with_probability"
+        mock_response = [
+            {"Esfuerzo": 10, "Capturas": 5, "Fecha": "2023-12-01", "prob": 0.75},
+            {"Esfuerzo": 12, "Capturas": 3, "Fecha": "2024-12-01", "prob": 0.65},
+        ]
+        m.post(entrypoint, json=mock_response)
+
+        runner.invoke(
             cli,
             [
                 "write-csv-probability",
                 "--input-path",
-                "effort_captures.csv",
+                input_path,
                 "--bootstrapping-number",
                 2,
                 "--window-length",
                 6,
                 "--output-path",
-                "probabilities.csv",
+                output_path,
             ],
         )
         assert m.call_count == 1
-        assert "200" in result.stdout
+
+        assert os.path.exists(output_path)
+        import pandas as pd
+
+        df = pd.read_csv(output_path)
+        assert len(df) == 2
+        assert "Esfuerzo" in df.columns
+        assert "Capturas" in df.columns
+        assert "Fecha" in df.columns
+        assert "prob" in df.columns
 
 
 def tests_write_probability_figure_entrypoint():

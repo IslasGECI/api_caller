@@ -11,6 +11,7 @@ home-page = "https://github.com/IslasGECI/api_caller"
 module = "geci_caller"
 requires = [
     "pandas",
+    "pandas-stubs",
     "requests",
     "requests_mock",
     "typer[all]",

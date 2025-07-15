@@ -1,4 +1,4 @@
-from geci_caller import construct_entrypoint_url
+from geci_caller.call_api import construct_entrypoint_url
 import json
 import pandas as pd
 import requests

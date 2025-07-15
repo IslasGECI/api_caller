@@ -1,5 +1,8 @@
-from geci_caller import construct_entrypoint_url, get_eradication_progress
-from geci_caller.cli import construct_entrypoint_url_write_aerial_monitoring
+from geci_caller.call_api import construct_entrypoint_url
+from geci_caller.cli import (
+    construct_entrypoint_url_write_aerial_monitoring,
+    get_eradication_progress,
+)
 
 import requests_mock
 

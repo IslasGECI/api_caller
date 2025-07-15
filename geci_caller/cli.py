@@ -130,15 +130,12 @@ def write_probability_progress_figure(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/write_probability_figure",
-        input_path=input_path,
-        output_path=output_path,
-    )
-    response = requests.get(url)
-    print(response.status_code)
+    url = "http://islasgeci.org:100/write_probability_figure"
+    with open(input_path, "rb") as f:
+        files = {"file": (input_path, f, "text/csv")}
+        response = requests.post(url, files=files)
+        with open(output_path, "wb") as out_file:
+            out_file.write(response.content)
 
 
 @cli.command()

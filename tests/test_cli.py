@@ -225,21 +225,32 @@ def tests_write_csv_probability_entrypoint():
 
 
 def tests_write_probability_figure_entrypoint():
+
+    input_path = "tests/data/feral_goat_capture_effort.csv"
+    output_path = "figure.png"
+
+    if os.path.exists(output_path):
+        os.remove(output_path)
+
     with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/write_probability_figure"
-        m.get(entrypoint)
-        result = runner.invoke(
+        entrypoint = "http://islasgeci.org:100/write_probability_figure"
+        dummy_image = b"\x89PNG\r\n\x1a\n" + b"\x00" * 100  # minimal PNG header + padding
+        m.post(entrypoint, content=dummy_image, headers={"Content-Type": "image/png"})
+
+        runner.invoke(
             cli,
             [
                 "write-probability-progress-figure",
                 "--input-path",
-                "probabilities.csv",
+                input_path,
                 "--output-path",
-                "figure.png",
+                output_path,
             ],
         )
         assert m.call_count == 1
-        assert "200" in result.stdout
+        assert os.path.exists(output_path)
+        with open(output_path, "rb") as f:
+            assert f.read().startswith(b"\x89PNG")
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():

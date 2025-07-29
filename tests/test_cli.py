@@ -107,25 +107,23 @@ def tests_write_population_status():
     assert_command_with_input_and_output_paths(result)
     assert " Number of bootstraps " in result.stdout
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://islasgeci.org:100/write_population_status"
-        m.post(entrypoint, json={"n0": 0, "remanentes": 0})
-        result = runner.invoke(
-            cli,
-            [
-                command,
-                "--input-path",
-                input_path,
-                "--bootstrapping-number",
-                10,
-                "--output-path",
-                output_path,
-            ],
-        )
-        assert m.call_count == 1
-        with open(output_path) as f:
-            data = json.load(f)
-            assert data == {"n0": 0, "remanentes": 0}
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            input_path,
+            "--bootstrapping-number",
+            10,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    with open(output_path) as f:
+        data = json.load(f)
+    assert data["capturas"] == 11
+    assert data["progress_probability"] == 1.0
 
 
 def test_call_entrypoint():

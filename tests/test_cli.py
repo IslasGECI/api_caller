@@ -1,9 +1,10 @@
-from geci_caller import cli, plot_cpue_vs_cum_captures
+from geci_caller import cli
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 import json
 import os
 import requests_mock
+from PIL import Image
 
 runner = CliRunner()
 
@@ -274,7 +275,8 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
 
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():
-    output_path = "figure_cpue_vs_cum.png"
+    format = "eps"
+    output_path = f"figure_cpue_vs_cum.{format}"
     input_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
     gtt.if_exist_remove(output_path)
     result = runner.invoke(
@@ -288,6 +290,10 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
         ],
     )
     assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in result.stdout
+    gtt.assert_exist(output_path)
+
+    with Image.open(output_path) as img:
+        assert img.format == format.upper()
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():

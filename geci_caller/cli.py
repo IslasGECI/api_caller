@@ -186,7 +186,7 @@ def plot_cpue_vs_cum_captures(
         response = requests.post(url, files=files, data={"format": extension})
         with open(output_path, "wb") as out_file:
             out_file.write(response.content)
-    print(response.url)
+    return response
 
 
 @cli.command()

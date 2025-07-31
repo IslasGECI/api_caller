@@ -1,4 +1,4 @@
-from geci_caller import cli
+from geci_caller import cli, plot_cpue_vs_cum_captures
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 import json
@@ -289,7 +289,10 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
             output_path,
         ],
     )
-    assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in result.stdout
+    assert result.exit_code == 0
+
+    response = plot_cpue_vs_cum_captures(input_path, output_path)
+    assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in response.url
     gtt.assert_exist(output_path)
 
     with Image.open(output_path) as img:

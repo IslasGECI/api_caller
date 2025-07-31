@@ -1,4 +1,4 @@
-from geci_caller import cli, plot_cpue_vs_cum_captures
+from geci_caller import cli, plot_cpue_vs_cum_captures, plot_custom_cpue_vs_cum_captures
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 import json
@@ -320,6 +320,8 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     )
     assert result.exit_code == 0
     assert "200" in result.stdout
+    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, "figure.png")
+    assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
 
 
 def assert_command_with_input_and_output_paths(result):

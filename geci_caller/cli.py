@@ -179,15 +179,13 @@ def plot_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/plot_cpue_vs_cum_captures",
-        input_path=input_path,
-        output_path=output_path,
-    )
-    response = requests.get(url)
-    print(response.status_code)
+    url = "http://islasgeci.org:100/plot_cpue_vs_cum_captures"
+    with open(input_path, "rb") as f:
+        files = {"file": (input_path, f, "text/csv")}
+        response = requests.post(url, files=files)
+        with open(output_path, "wb") as out_file:
+            out_file.write(response.content)
+    print(response.url)
 
 
 @cli.command()

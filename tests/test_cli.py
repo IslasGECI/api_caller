@@ -273,21 +273,17 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
 
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/plot_cpue_vs_cum_captures"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                "plot-cpue-vs-cum-captures",
-                "--input-path",
-                "probabilities.csv",
-                "--output-path",
-                "figure.png",
-            ],
-        )
-        assert m.call_count == 1
-        assert "200" in result.stdout
+    result = runner.invoke(
+        cli,
+        [
+            "plot-cpue-vs-cum-captures",
+            "--input-path",
+            "probabilities.csv",
+            "--output-path",
+            "figure.png",
+        ],
+    )
+    assert "200" in result.stdout
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():

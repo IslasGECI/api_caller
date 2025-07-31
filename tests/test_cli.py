@@ -1,4 +1,4 @@
-from geci_caller import cli
+from geci_caller import cli, plot_cpue_vs_cum_captures
 from typer.testing import CliRunner
 import json
 import os
@@ -273,17 +273,18 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
 
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():
+    input_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
     result = runner.invoke(
         cli,
         [
             "plot-cpue-vs-cum-captures",
             "--input-path",
-            "probabilities.csv",
+            input_path,
             "--output-path",
             "figure.png",
         ],
     )
-    assert "200" in result.stdout
+    assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in result.stdout
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():

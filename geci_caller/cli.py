@@ -179,10 +179,11 @@ def plot_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
+    extension = output_path.split(".")[-1]
     url = "http://islasgeci.org:100/plot_cpue_vs_cum_captures"
     with open(input_path, "rb") as f:
         files = {"file": (input_path, f, "text/csv")}
-        response = requests.post(url, files=files)
+        response = requests.post(url, files=files, data={"format": extension})
         with open(output_path, "wb") as out_file:
             out_file.write(response.content)
     print(response.url)

@@ -304,23 +304,22 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert_command_with_input_and_output_paths(result)
     assert " Path of config file " in result.stdout
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/plot_custom_cpue_vs_cum_captures"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                "plot-custom-cpue-vs-cum-captures",
-                "--input-path",
-                "goat_data.csv",
-                "--config-path",
-                "config.json",
-                "--output-path",
-                "figure.png",
-            ],
-        )
-        assert result.exit_code == 0
-        assert "200" in result.stdout
+    input_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
+    config_path = "tests/data/hunt_config.json"
+    result = runner.invoke(
+        cli,
+        [
+            "plot-custom-cpue-vs-cum-captures",
+            "--input-path",
+            input_path,
+            "--config-path",
+            config_path,
+            "--output-path",
+            "figure.png",
+        ],
+    )
+    assert result.exit_code == 0
+    assert "200" in result.stdout
 
 
 def assert_command_with_input_and_output_paths(result):

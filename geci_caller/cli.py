@@ -1,4 +1,5 @@
 from geci_caller.call_api import construct_entrypoint_url
+import geci_caller as gc
 import json
 import pandas as pd
 import requests
@@ -194,7 +195,8 @@ def plot_cpue_vs_cum_captures(
 
 @cli.command()
 def version():
-    pass
+    version = gc.__version__
+    print(version)
 
 
 def read_file_as_buffer(file_path):

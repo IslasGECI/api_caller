@@ -9,6 +9,40 @@ cli = typer.Typer()
 
 
 @cli.command()
+def plot_cumulative_series_cpue_by_flight(
+    input_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/plot_cumulative_series_cpue_by_flight",
+        input_path=input_path,
+        output_path=output_path,
+    )
+    response = requests.get(url)
+    print(response.status_code)
+
+
+@cli.command()
+def plot_comparative_catch_curves(
+    socorro_path: str = typer.Option(help="Path of Socorro data"),
+    guadalupe_path: str = typer.Option(help="Path of Guadalupe data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    url = construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/plot_comparative_catch_curves",
+        socorro_path=socorro_path,
+        guadalupe_path=guadalupe_path,
+        output_path=output_path,
+    )
+    response = requests.get(url)
+    print(response.status_code)
+
+
+@cli.command()
 def write_bootstrap_progress_intervals(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
@@ -49,23 +83,6 @@ def write_aerial_monitoring(
         bootstrapping_number=bootstrapping_number,
         output_path=output_path,
     )
-
-
-def construct_entrypoint_url_write_aerial_monitoring(input_path, bootstrapping_number, output_path):
-    return construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/write_aerial_monitoring",
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-    )
-
-
-def get_eradication_progress_write_aerial_monitoring(**kwargs):
-    url = construct_entrypoint_url_write_aerial_monitoring(**kwargs)
-    response = requests.get(url)
-    print(response.status_code)
 
 
 @cli.command()
@@ -139,24 +156,6 @@ def write_probability_progress_figure(
 
 
 @cli.command()
-def plot_comparative_catch_curves(
-    socorro_path: str = typer.Option(help="Path of Socorro data"),
-    guadalupe_path: str = typer.Option(help="Path of Guadalupe data"),
-    output_path: str = typer.Option(help="Path of figure to write"),
-):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/plot_comparative_catch_curves",
-        socorro_path=socorro_path,
-        guadalupe_path=guadalupe_path,
-        output_path=output_path,
-    )
-    response = requests.get(url)
-    print(response.status_code)
-
-
-@cli.command()
 def plot_custom_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
     config_path: str = typer.Option(help="Path of config file"),
@@ -176,18 +175,6 @@ def plot_custom_cpue_vs_cum_captures(
     return response
 
 
-def read_file_as_buffer(file_path):
-    with open(file_path, "rb") as file:
-        buffer_file = io.BytesIO(file.read())
-    return buffer_file
-
-
-def get_eradication_progress(entrypoint_name, **kwargs):
-    url = construct_entrypoint_url("eradication_progress", 10000, entrypoint_name, **kwargs)
-    response = requests.get(url)
-    print(response.status_code)
-
-
 @cli.command()
 def plot_cpue_vs_cum_captures(
     input_path: str = typer.Option(help="Path of input data"),
@@ -203,22 +190,35 @@ def plot_cpue_vs_cum_captures(
     return response
 
 
+def read_file_as_buffer(file_path):
+    with open(file_path, "rb") as file:
+        buffer_file = io.BytesIO(file.read())
+    return buffer_file
+
+
+def get_eradication_progress(entrypoint_name, **kwargs):
+    url = construct_entrypoint_url("eradication_progress", 10000, entrypoint_name, **kwargs)
+    response = requests.get(url)
+    print(response.status_code)
+
+
 def write_response_content(output_path, response):
     with open(output_path, "wb") as out_file:
         out_file.write(response.content)
 
 
-@cli.command()
-def plot_cumulative_series_cpue_by_flight(
-    input_path: str = typer.Option(help="Path of input data"),
-    output_path: str = typer.Option(help="Path of figure to write"),
-):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/plot_cumulative_series_cpue_by_flight",
-        input_path=input_path,
-        output_path=output_path,
-    )
+def get_eradication_progress_write_aerial_monitoring(**kwargs):
+    url = construct_entrypoint_url_write_aerial_monitoring(**kwargs)
     response = requests.get(url)
     print(response.status_code)
+
+
+def construct_entrypoint_url_write_aerial_monitoring(input_path, bootstrapping_number, output_path):
+    return construct_entrypoint_url(
+        "eradication_progress",
+        10000,
+        "/write_aerial_monitoring",
+        input_path=input_path,
+        bootstrapping_number=bootstrapping_number,
+        output_path=output_path,
+    )

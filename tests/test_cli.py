@@ -337,6 +337,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
 def tests_version():
     obtained_result = get_command_help("version")
     assert_successful_command(obtained_result)
+    obtained_result = runner.invoke(cli, ["version"])
     assert "0.16.0" in obtained_result.stdout
 
 

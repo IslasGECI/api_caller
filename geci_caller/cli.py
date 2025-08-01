@@ -135,8 +135,7 @@ def write_probability_progress_figure(
     with open(input_path, "rb") as f:
         files = {"file": (input_path, f, "text/csv")}
         response = requests.post(url, files=files)
-        with open(output_path, "wb") as out_file:
-            out_file.write(response.content)
+        write_response_content(output_path, response)
 
 
 @cli.command()
@@ -172,8 +171,7 @@ def plot_custom_cpue_vs_cum_captures(
     }
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
-    with open(output_path, "wb") as out_file:
-        out_file.write(response.content)
+    write_response_content(output_path, response)
     print(response.status_code)
     return response
 

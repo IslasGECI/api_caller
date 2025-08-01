@@ -132,10 +132,10 @@ def write_probability_progress_figure(
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     url = "http://islasgeci.org:100/write_probability_figure"
-    with open(input_path, "rb") as f:
-        files = {"file": (input_path, f, "text/csv")}
-        response = requests.post(url, files=files)
-        write_response_content(output_path, response)
+    file_like = read_file_as_buffer(input_path)
+    files = {"file": (input_path, file_like, "text/csv")}
+    response = requests.post(url, files=files)
+    write_response_content(output_path, response)
 
 
 @cli.command()

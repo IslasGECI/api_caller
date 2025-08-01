@@ -170,8 +170,8 @@ def plot_custom_cpue_vs_cum_captures(
                 "config": (config_path, config, "application/json"),
             }
             response = requests.post(url, files=files)
-            with open(output_path, "wb") as out_file:
-                out_file.write(response.content)
+    with open(output_path, "wb") as out_file:
+        out_file.write(response.content)
     print(response.status_code)
     return response
 

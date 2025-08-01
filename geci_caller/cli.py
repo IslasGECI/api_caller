@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import requests
 import typer
+import io
 
 cli = typer.Typer()
 
@@ -163,17 +164,23 @@ def plot_custom_cpue_vs_cum_captures(
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     url = "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures"
-    with open(input_path, "rb") as f:
-        with open(config_path, "rb") as config:
-            files = {
-                "file": (input_path, f, "text/csv"),
-                "config": (config_path, config, "application/json"),
-            }
-            response = requests.post(url, files=files)
+    file_like = read_file_as_buffer(input_path)
+    config_like = read_file_as_buffer(config_path)
+    files = {
+        "file": (input_path, file_like, "text/csv"),
+        "config": (config_path, config_like, "application/json"),
+    }
+    response = requests.post(url, files=files)
     with open(output_path, "wb") as out_file:
         out_file.write(response.content)
     print(response.status_code)
     return response
+
+
+def read_file_as_buffer(file_path):
+    with open(file_path, "rb") as file:
+        buffer_file = io.BytesIO(file.read())
+    return buffer_file
 
 
 def get_eradication_progress(entrypoint_name, **kwargs):

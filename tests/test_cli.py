@@ -318,9 +318,9 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
             "figure.png",
         ],
     )
+    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, "figure.png")
     assert result.exit_code == 0
     assert "200" in result.stdout
-    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, "figure.png")
     assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
 
 

@@ -1,4 +1,9 @@
-from geci_caller import cli, plot_cpue_vs_cum_captures, plot_custom_cpue_vs_cum_captures
+from geci_caller import (
+    cli,
+    plot_cpue_vs_cum_captures,
+    plot_custom_cpue_vs_cum_captures,
+    write_probability_progress_figure,
+)
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 import json
@@ -225,32 +230,28 @@ def tests_write_csv_probability_entrypoint():
 
 
 def tests_write_probability_figure_entrypoint():
+    input_path = "tests/data/progress_probability_tests.csv"
+    format = "png"
+    output_path = f"probability_progress_figure.{format}"
+    gtt.if_exist_remove(output_path)
+    result = runner.invoke(
+        cli,
+        [
+            "write-probability-progress-figure",
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    assert "200" in result.stdout
 
-    input_path = "tests/data/feral_goat_capture_effort.csv"
-    output_path = "figure.png"
+    response = write_probability_progress_figure(input_path, output_path)
+    assert "http://islasgeci.org:100/write_probability_figure" in response.url
+    gtt.assert_exist(output_path)
 
-    if os.path.exists(output_path):
-        os.remove(output_path)
-
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://islasgeci.org:100/write_probability_figure"
-        dummy_image = b"\x89PNG\r\n\x1a\n" + b"\x00" * 100  # minimal PNG header + padding
-        m.post(entrypoint, content=dummy_image, headers={"Content-Type": "image/png"})
-
-        runner.invoke(
-            cli,
-            [
-                "write-probability-progress-figure",
-                "--input-path",
-                input_path,
-                "--output-path",
-                output_path,
-            ],
-        )
-        assert m.call_count == 1
-        assert os.path.exists(output_path)
-        with open(output_path, "rb") as f:
-            assert f.read().startswith(b"\x89PNG")
+    assert_figure_format(format, output_path)
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():

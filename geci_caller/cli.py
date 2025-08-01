@@ -153,6 +153,8 @@ def write_probability_progress_figure(
     files = {"file": (input_path, file_like, "text/csv")}
     response = requests.post(url, files=files)
     write_response_content(output_path, response)
+    print(response.status_code)
+    return response
 
 
 @cli.command()

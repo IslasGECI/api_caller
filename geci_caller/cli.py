@@ -162,10 +162,18 @@ def plot_custom_cpue_vs_cum_captures(
     config_path: str = typer.Option(help="Path of config file"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
-    get_eradication_progress(
-        entrypoint_name, input_path=input_path, config_path=config_path, output_path=output_path
-    )
+    url = "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures"
+    with open(input_path, "rb") as f:
+        with open(config_path, "rb") as config:
+            files = {
+                "file": (input_path, f, "text/csv"),
+                "config": (config_path, config, "application/json"),
+            }
+            response = requests.post(url, files=files)
+            with open(output_path, "wb") as out_file:
+                out_file.write(response.content)
+    print(response.status_code)
+    return response
 
 
 def get_eradication_progress(entrypoint_name, **kwargs):

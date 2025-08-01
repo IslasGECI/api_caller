@@ -21,3 +21,7 @@ requires-python=">=3.9"
 
 [tool.flit.scripts]
 geci-caller = "geci_caller.cli:cli"
+
+[[tool.mypy.overrides]]
+module = ["geci_test_tools.*"]
+ignore_missing_imports = true

@@ -295,6 +295,10 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
     assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in response.url
     gtt.assert_exist(output_path)
 
+    assert_figure_format(format, output_path)
+
+
+def assert_figure_format(format, output_path):
     with Image.open(output_path) as img:
         assert img.format == format.upper()
 
@@ -325,8 +329,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert "200" in result.stdout
     assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
 
-    with Image.open(output_path) as img:
-        assert img.format == format.upper()
+    assert_figure_format(format, output_path)
 
 
 def assert_command_with_input_and_output_paths(result):

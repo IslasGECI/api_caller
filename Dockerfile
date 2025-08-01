@@ -4,7 +4,7 @@ COPY . .
 RUN pip install --upgrade pip && pip install \
     black \
     flake8 \
-    geci_test_tools \
+    geci-test-tools \
     mutmut==2.* \
     mypy \
     pillow \

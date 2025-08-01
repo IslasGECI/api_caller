@@ -334,6 +334,11 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert_figure_format(format, output_path)
 
 
+def tests_version():
+    obtained_result = get_command_help("version")
+    assert_successful_command(obtained_result)
+
+
 def assert_command_with_input_and_output_paths(result):
     assert_successful_command(result)
     assert_input_path_argument(result)

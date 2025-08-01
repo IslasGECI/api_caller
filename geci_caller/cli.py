@@ -199,6 +199,7 @@ def plot_cpue_vs_cum_captures(
     files = {"file": (input_path, file_like, "text/csv")}
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
+    print(response.status_code)
     return response
 
 

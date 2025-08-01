@@ -196,11 +196,11 @@ def plot_cpue_vs_cum_captures(
 ):
     extension = output_path.split(".")[-1]
     url = "http://islasgeci.org:100/plot_cpue_vs_cum_captures"
-    with open(input_path, "rb") as f:
-        files = {"file": (input_path, f, "text/csv")}
-        response = requests.post(url, files=files, data={"format": extension})
-        with open(output_path, "wb") as out_file:
-            out_file.write(response.content)
+    file_like = read_file_as_buffer(input_path)
+    files = {"file": (input_path, file_like, "text/csv")}
+    response = requests.post(url, files=files, data={"format": extension})
+    with open(output_path, "wb") as out_file:
+        out_file.write(response.content)
     return response
 
 

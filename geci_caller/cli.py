@@ -200,9 +200,13 @@ def plot_cpue_vs_cum_captures(
     file_like = read_file_as_buffer(input_path)
     files = {"file": (input_path, file_like, "text/csv")}
     response = requests.post(url, files=files, data={"format": extension})
+    write_response_content(output_path, response)
+    return response
+
+
+def write_response_content(output_path, response):
     with open(output_path, "wb") as out_file:
         out_file.write(response.content)
-    return response
 
 
 @cli.command()

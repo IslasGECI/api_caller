@@ -31,16 +31,17 @@ def plot_comparative_catch_curves(
     guadalupe_path: str = typer.Option(help="Path of Guadalupe data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/plot_comparative_catch_curves",
-        socorro_path=socorro_path,
-        guadalupe_path=guadalupe_path,
-        output_path=output_path,
-    )
-    response = requests.get(url)
+    url = "http://islasgeci.org:100/plot_comparative_catch_curves"
+    socorro_file_like = read_file_as_buffer(socorro_path)
+    guadalupe_file_like = read_file_as_buffer(guadalupe_path)
+    files = {
+        "socorro_file": (socorro_path, socorro_file_like, "text/csv"),
+        "guadalupe_file": (guadalupe_path, guadalupe_file_like, "text/csv"),
+    }
+    extension = output_path.split(".")[-1]
+    response = requests.post(url, files=files, data={"format": extension})
     print(response.status_code)
+    return response
 
 
 @cli.command()

@@ -40,6 +40,7 @@ def plot_comparative_catch_curves(
     }
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
+    write_response_content(output_path, response)
     print(response.status_code)
     return response
 

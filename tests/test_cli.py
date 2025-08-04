@@ -1,6 +1,7 @@
 from geci_caller import (
     cli,
     plot_cpue_vs_cum_captures,
+    plot_comparative_catch_curves,
     plot_custom_cpue_vs_cum_captures,
     write_probability_progress_figure,
 )
@@ -168,23 +169,25 @@ def tests_plot_comparative_catch_curves():
     assert_successful_command(result)
     assert_output_path_argument(result)
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/plot_comparative_catch_curves"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                "plot-comparative-catch-curves",
-                "--socorro-path",
-                "cumulatives_socorro.csv",
-                "--guadalupe-path",
-                "cumulatives_guadalupe.csv",
-                "--output-path",
-                "figure.png",
-            ],
-        )
-        assert m.call_count == 1
-        assert "200" in result.stdout
+    socorro_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
+    guadalupe_path = "tests/data/cumulative_effort_and_captures_for_year_guadalupe.csv"
+    output_path = "figure.png"
+    result = runner.invoke(
+        cli,
+        [
+            "plot-comparative-catch-curves",
+            "--socorro-path",
+            socorro_path,
+            "--guadalupe-path",
+            guadalupe_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert "200" in result.stdout
+    response = plot_comparative_catch_curves(socorro_path, guadalupe_path, output_path)
+    assert "http://islasgeci.org:100/plot_comparative_catch_curves" in response.url
+    gtt.assert_exist(output_path)
 
 
 def tests_write_csv_probability_entrypoint():

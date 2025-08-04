@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.18.0] - 2025-08-04
+### Changed
+- Refactor `plot-comparative-catch-curves` command to use HTTP POST with multipart/form-data, aligning with the updated API endpoint. Now sends the CSV as a file and receives the figure as the content of the API response.
+
 ## [0.17.0] - 2025-08-01
 ### Changed
 - Refactor `plot-cpue-vs-cum-captures` and `plot-custom-cpue-vs-cum-captures` commands to use HTTP POST with multipart/form-data, aligning with the updated API endpoint. Now sends the CSV as a file and receives the figure as the content of the API response.

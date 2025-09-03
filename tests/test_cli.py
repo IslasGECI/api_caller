@@ -262,7 +262,7 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
     result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
     assert_command_with_input_and_output_paths(result)
 
-    output_path = "figure.png"
+    output_path = "cumulative_by_flight.png"
     input_path = "tests/data/feral_goat_capture_effort.csv"
     result = runner.invoke(
         cli,

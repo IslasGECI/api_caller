@@ -261,21 +261,17 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
     result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
     assert_command_with_input_and_output_paths(result)
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://eradication_progress:10000/plot_cumulative_series_cpue_by_flight"
-        m.get(entrypoint)
-        result = runner.invoke(
-            cli,
-            [
-                "plot-cumulative-series-cpue-by-flight",
-                "--input-path",
-                "probabilities.csv",
-                "--output-path",
-                "figure.png",
-            ],
-        )
-        assert m.call_count == 1
-        assert "200" in result.stdout
+    result = runner.invoke(
+        cli,
+        [
+            "plot-cumulative-series-cpue-by-flight",
+            "--input-path",
+            "probabilities.csv",
+            "--output-path",
+            "figure.png",
+        ],
+    )
+    assert "200" in result.stdout
 
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():

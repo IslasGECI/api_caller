@@ -14,15 +14,16 @@ def plot_cumulative_series_cpue_by_flight(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    url = construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/plot_cumulative_series_cpue_by_flight",
-        input_path=input_path,
-        output_path=output_path,
-    )
-    response = requests.get(url)
+    url = "http://islasgeci.org:100/plot_cumulative_series_cpue_by_flight"
+    input_file_like = read_file_as_buffer(input_path)
+    files = {
+        "file": (input_path, input_file_like, "text/csv"),
+    }
+    extension = output_path.split(".")[-1]
+    response = requests.post(url, files=files, data={"format": extension})
+    write_response_content(output_path, response)
     print(response.status_code)
+    return response
 
 
 @cli.command()

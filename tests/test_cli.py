@@ -3,6 +3,7 @@ from geci_caller import (
     plot_cpue_vs_cum_captures,
     plot_comparative_catch_curves,
     plot_custom_cpue_vs_cum_captures,
+    plot_cumulative_series_cpue_by_flight,
     write_probability_progress_figure,
 )
 import geci_test_tools as gtt
@@ -261,17 +262,21 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
     result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
     assert_command_with_input_and_output_paths(result)
 
+    output_path = "figure.png"
+    input_path = "tests/data/feral_goat_capture_effort.csv"
     result = runner.invoke(
         cli,
         [
             "plot-cumulative-series-cpue-by-flight",
             "--input-path",
-            "probabilities.csv",
+            input_path,
             "--output-path",
-            "figure.png",
+            output_path,
         ],
     )
     assert "200" in result.stdout
+    response = plot_cumulative_series_cpue_by_flight(input_path, output_path)
+    assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_flight" in response.url
 
 
 def tests_plot_cpue_vs_cum_captures_entrypoint():

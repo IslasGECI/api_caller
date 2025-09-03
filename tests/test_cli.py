@@ -1,9 +1,10 @@
 from geci_caller import (
     cli,
-    plot_cpue_vs_cum_captures,
     plot_comparative_catch_curves,
-    plot_custom_cpue_vs_cum_captures,
+    plot_comparative_yearly_cpue,
+    plot_cpue_vs_cum_captures,
     plot_cumulative_series_cpue_by_flight,
+    plot_custom_cpue_vs_cum_captures,
     write_probability_progress_figure,
 )
 import geci_test_tools as gtt
@@ -188,6 +189,37 @@ def tests_plot_comparative_catch_curves():
     assert "200" in result.stdout
     response = plot_comparative_catch_curves(socorro_path, guadalupe_path, output_path)
     assert "http://islasgeci.org:100/plot_comparative_catch_curves" in response.url
+    gtt.assert_exist(output_path)
+
+
+def tests_plot_comparative_yearly_cpue():
+    command = "plot-comparative-yearly-cpue"
+    result = get_command_help(command)
+    assert "--socorro-path " in result.stdout
+    assert " Path of Socorro data " in result.stdout
+    assert "--guadalupe-path " in result.stdout
+    assert " Path of Guadalupe data " in result.stdout
+    assert_successful_command(result)
+    assert_output_path_argument(result)
+
+    socorro_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    guadalupe_path = "tests/data/esfuerzo_capturas_gatos_guadalupe_ISO_for_tests.csv"
+    output_path = "figure.png"
+    result = runner.invoke(
+        cli,
+        [
+            "plot-comparative-yearly-cpue",
+            "--socorro-path",
+            socorro_path,
+            "--guadalupe-path",
+            guadalupe_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert "200" in result.stdout
+    response = plot_comparative_yearly_cpue(socorro_path, guadalupe_path, output_path)
+    assert "http://islasgeci.org:100/plot_comparative_yearly_cpue" in response.url
     gtt.assert_exist(output_path)
 
 

@@ -204,7 +204,7 @@ def tests_plot_comparative_yearly_cpue():
 
     socorro_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     guadalupe_path = "tests/data/esfuerzo_capturas_gatos_guadalupe_ISO_for_tests.csv"
-    output_path = "figure.png"
+    output_path = "comparative_cpue.png"
     result = runner.invoke(
         cli,
         [

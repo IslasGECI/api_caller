@@ -243,6 +243,7 @@ def get_eradication_progress_write_aerial_monitoring(**kwargs):
     url = construct_entrypoint_url_write_aerial_monitoring(**kwargs)
     response = requests.get(url)
     print(response.status_code)
+    response.raise_for_status()
 
 
 def construct_entrypoint_url_write_aerial_monitoring(input_path, bootstrapping_number, output_path):

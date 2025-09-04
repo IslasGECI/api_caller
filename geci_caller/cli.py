@@ -10,6 +10,14 @@ cli = typer.Typer()
 
 
 @cli.command()
+def plot_cumulative_cpue_series_by_season(
+    input_path: str = typer.Option(help="Path of input data"),
+    output_path: str = typer.Option(help="Path of figure to write"),
+):
+    pass
+
+
+@cli.command()
 def plot_cumulative_series_cpue_by_flight(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),

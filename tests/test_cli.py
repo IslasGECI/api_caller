@@ -3,6 +3,7 @@ from geci_caller import (
     plot_comparative_catch_curves,
     plot_comparative_yearly_cpue,
     plot_cpue_vs_cum_captures,
+    plot_cumulative_cpue_series_by_season,
     plot_cumulative_series_cpue_by_flight,
     plot_custom_cpue_vs_cum_captures,
     write_probability_progress_figure,
@@ -293,6 +294,22 @@ def tests_write_probability_figure_entrypoint():
 def tests_plot_cumulative_series_cpue_by_season():
     result = runner.invoke(cli, ["plot-cumulative-cpue-series-by-season", "--help"])
     assert_command_with_input_and_output_paths(result)
+
+    output_path = "cumulative_by_season.png"
+    input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    result = runner.invoke(
+        cli,
+        [
+            "plot-cumulative-cpue-series-by-season",
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert "200" in result.stdout
+    response = plot_cumulative_cpue_series_by_season(input_path, output_path)
+    assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_season" in response.url
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():

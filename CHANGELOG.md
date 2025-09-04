@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.19.0] - 2025-09-04
+### Added
+- The command `plot-comparative-yearly-cpue`. This command can combine the yearly CPUE for effort and capture two datasets.
+- The entrypoint `plot-cumulative-cpue-series-by-season`. This command calculates the yearly CPUE and cumulative CPUE for effort and capture dataset.
+
+### Changed
+- Refactor `plot-cumulative-series-cpue-by-flight` command to use HTTP POST with multipart/form-data, aligning with the updated API endpoint. Now sends the CSV as a file and receives the figure as the content of the API response.
 ## [0.18.0] - 2025-08-04
 ### Changed
 - Refactor `plot-comparative-catch-curves` command to use HTTP POST with multipart/form-data, aligning with the updated API endpoint. Now sends the CSV as a file and receives the figure as the content of the API response.

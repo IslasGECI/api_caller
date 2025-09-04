@@ -14,6 +14,8 @@ import json
 import os
 import requests_mock
 from PIL import Image
+import pytest
+from requests import HTTPError
 
 runner = CliRunner()
 
@@ -310,6 +312,10 @@ def tests_plot_cumulative_series_cpue_by_season():
     assert "200" in result.stdout
     response = plot_cumulative_cpue_series_by_season(input_path, output_path)
     assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_season" in response.url
+
+    input_path = "tests/data/feral_goat_aerial_monitoring.csv"
+    with pytest.raises(HTTPError):
+        plot_cumulative_cpue_series_by_season(input_path, output_path)
 
 
 def tests_plot_cumulative_series_cpue_by_flight_entrypoint():

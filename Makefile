@@ -73,7 +73,7 @@ tests:
 
 test-services: install
 	geci-caller plot-cumulative-series-cpue-by-flight \
-		--input-path data/feral_goat_capture_effort.csv \
+		--input-path tests/data/feral_goat_capture_effort.csv \
 		--output-path goat_cpue_figure.png
 	geci-caller write-population-status \
 		--input-path tests/data/feral_goat_capture_effort.csv \

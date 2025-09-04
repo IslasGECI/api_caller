@@ -22,6 +22,7 @@ def plot_cumulative_cpue_series_by_season(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
+    response.raise_for_status()
     print(response.status_code)
     return response
 

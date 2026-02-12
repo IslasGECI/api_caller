@@ -167,6 +167,7 @@ def write_csv_probability(
     bootstrapping_number: int = typer.Option(help="Number of bootstrap by window"),
     output_path: str = typer.Option(help="Path of csv file to write"),
     window_length: int = typer.Option(help="Number of months by window"),
+    resolution: int | None = typer.Option(default=None, help="Temporal resolution"),
 ):
     entrypoint_name = "/write_effort_and_captures_with_probability"
     url = f"http://islasgeci.org:100{entrypoint_name}"
@@ -177,6 +178,7 @@ def write_csv_probability(
             data={
                 "bootstrapping_number": bootstrapping_number,
                 "window_length": window_length,
+                "resolution": resolution,
             },
         )
     response.raise_for_status()

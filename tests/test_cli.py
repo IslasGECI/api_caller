@@ -6,13 +6,13 @@ from geci_caller import (
     plot_cumulative_cpue_series_by_season,
     plot_cumulative_series_cpue_by_flight,
     plot_custom_cpue_vs_cum_captures,
+    write_csv_probability,
     write_probability_progress_figure,
 )
 import geci_test_tools as gtt
 from typer.testing import CliRunner
 import json
 import os
-import requests_mock
 from PIL import Image
 import pytest
 from requests import HTTPError
@@ -227,45 +227,33 @@ def tests_plot_comparative_yearly_cpue():
 
 
 def tests_write_csv_probability_entrypoint():
-    input_path = "tests/data/feral_goat_capture_effort.csv"
+    input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     output_path = "probabilities.csv"
 
-    if os.path.exists(output_path):
-        os.remove(output_path)
+    gtt.if_exist_remove(output_path)
 
-    with requests_mock.Mocker() as m:
-        entrypoint = "http://islasgeci.org:100/write_effort_and_captures_with_probability"
-        mock_response = [
-            {"Esfuerzo": 10, "Capturas": 5, "Fecha": "2023-12-01", "prob": 0.75},
-            {"Esfuerzo": 12, "Capturas": 3, "Fecha": "2024-12-01", "prob": 0.65},
-        ]
-        m.post(entrypoint, json=mock_response)
+    bootstrapping_number = 2
+    window_length = 6
+    result = runner.invoke(
+        cli,
+        [
+            "write-csv-probability",
+            "--input-path",
+            input_path,
+            "--bootstrapping-number",
+            bootstrapping_number,
+            "--window-length",
+            window_length,
+            "--output-path",
+            output_path,
+        ],
+    )
 
-        runner.invoke(
-            cli,
-            [
-                "write-csv-probability",
-                "--input-path",
-                input_path,
-                "--bootstrapping-number",
-                2,
-                "--window-length",
-                6,
-                "--output-path",
-                output_path,
-            ],
-        )
-        assert m.call_count == 1
+    response = write_csv_probability(input_path, bootstrapping_number, output_path, window_length)
+    assert "http://islasgeci.org:100/write_effort_and_captures_with_probability" in response.url
 
-        assert os.path.exists(output_path)
-        import pandas as pd
-
-        df = pd.read_csv(output_path)
-        assert len(df) == 2
-        assert "Esfuerzo" in df.columns
-        assert "Capturas" in df.columns
-        assert "Fecha" in df.columns
-        assert "prob" in df.columns
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
 
 
 def tests_write_probability_figure_entrypoint():

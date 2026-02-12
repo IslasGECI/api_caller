@@ -248,12 +248,17 @@ def tests_write_csv_probability_entrypoint():
             output_path,
         ],
     )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
 
     response = write_csv_probability(input_path, bootstrapping_number, output_path, window_length)
     assert "http://islasgeci.org:100/write_effort_and_captures_with_probability" in response.url
 
-    assert result.exit_code == 0
-    assert os.path.exists(output_path)
+    resolution = 1
+    response = write_csv_probability(
+        input_path, bootstrapping_number, output_path, window_length, resolution
+    )
+    assert "http://islasgeci.org:100/write_effort_and_captures_with_probability" in response.url
 
 
 def tests_write_probability_figure_entrypoint():

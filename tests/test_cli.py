@@ -397,7 +397,7 @@ def tests_version():
     obtained_result = get_command_help("version")
     assert_successful_command(obtained_result)
     obtained_result = runner.invoke(cli, ["version"])
-    assert "0.19.0" in obtained_result.stdout
+    assert "0.20.0" in obtained_result.stdout
 
 
 def assert_command_with_input_and_output_paths(result):

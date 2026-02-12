@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.20.0] - 2026-02-12
+### Added
+- CLI command `write_csv_probability` now have `resolution` option.
+
+
 ## [0.19.0] - 2025-09-04
 ### Added
 - The command `plot-comparative-yearly-cpue`. This command can combine the yearly CPUE for effort and capture two datasets.

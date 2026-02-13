@@ -171,19 +171,17 @@ def write_csv_probability(
 ):
     entrypoint_name = "/write_effort_and_captures_with_probability"
     url = f"http://islasgeci.org:100{entrypoint_name}"
-
     data = {
         "bootstrapping_number": bootstrapping_number,
         "window_length": window_length,
         "resolution": resolution,
     }
-
-    with open(input_path, "rb") as f:
-        response = requests.post(
-            url,
-            files={"file": f},
-            data=data,
-        )
+    file_like = read_file_as_buffer(input_path)
+    response = requests.post(
+        url,
+        files={"file": (input_path, file_like, "text/csv")},
+        data=data,
+    )
     response.raise_for_status()
     json_data = response.json()
     df = pd.DataFrame(json_data)

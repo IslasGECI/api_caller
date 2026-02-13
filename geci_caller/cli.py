@@ -175,8 +175,8 @@ def write_csv_probability(
     data = {
         "bootstrapping_number": bootstrapping_number,
         "window_length": window_length,
+        "resolution": resolution,
     }
-    data["resolution"] = resolution
 
     with open(input_path, "rb") as f:
         response = requests.post(

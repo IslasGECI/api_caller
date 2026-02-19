@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.21.0] - 2026-02-19
+### Added
+- CLI command `write_posterior_results`. This command runs a posterior distribution of population ecological bayesian model. The bayesian analysis is performed using the package `Stan`
+
 ## [0.20.0] - 2026-02-12
 ### Added
 - CLI command `write_csv_probability` now have `resolution` option.

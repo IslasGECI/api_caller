@@ -263,6 +263,29 @@ def tests_write_csv_probability_entrypoint():
     assert "http://islasgeci.org:100/write_effort_and_captures_with_probability" in response.url
 
 
+def tests_write_posterior_results():
+    input_path = "tests/data/data_effort_captures_for_model.json"
+    parameters_path = "tests/data/init_captures_effort_model.json"
+    output_path = "posteriors.csv"
+
+    gtt.if_exist_remove(output_path)
+
+    result = runner.invoke(
+        cli,
+        [
+            "write-posterior-results",
+            "--input-path",
+            input_path,
+            "--initial-parameters-path",
+            parameters_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
+
+
 def tests_write_probability_figure_entrypoint():
     input_path = "tests/data/progress_probability_tests.csv"
     format = "png"

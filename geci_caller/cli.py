@@ -10,6 +10,31 @@ cli = typer.Typer()
 
 
 @cli.command()
+def write_posterior_results(
+    input_path: str = typer.Option(help="Path of input data"),
+    initial_parameters_path: str = typer.Option(help="Path of initial parameters"),
+    output_path: str = typer.Option(help="Path of output file"),
+):
+    url = "http://islasgeci.org:200/write_eradication_bayesian_model_results"
+    data_file_like = read_file_as_buffer(input_path)
+    initial_parameters_file_like = read_file_as_buffer(initial_parameters_path)
+    files = {
+        "data_path": (input_path, data_file_like, "application/json"),
+        "initial_parameters_path": (
+            initial_parameters_path,
+            initial_parameters_file_like,
+            "application/json",
+        ),
+    }
+    response = requests.post(url, files=files)
+    response.raise_for_status()
+    json_data = response.json()
+    df = pd.DataFrame(json_data)
+    df.to_csv(output_path, index=False)
+    return response
+
+
+@cli.command()
 def plot_cumulative_cpue_series_by_season(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),

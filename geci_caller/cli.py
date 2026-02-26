@@ -110,11 +110,18 @@ def write_aerial_monitoring(
     bootstrapping_number: int = typer.Option(help="Number of bootstraps"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    get_eradication_progress_write_aerial_monitoring(
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-    )
+
+    url = "http://islasgeci.org:100/write_aerial_monitoring"
+    input_file_like = read_file_as_buffer(input_path)
+    files = {
+        "input_path": (input_path, input_file_like, "text/csv"),
+    }
+    data = {"bootstrapping_number": bootstrapping_number}
+    response = requests.post(url, files=files, data=data)
+    with open(output_path, "w") as out_file:
+        json.dump(response.json(), out_file, indent=2)
+    print(response.status_code)
+    return response
 
 
 @cli.command()

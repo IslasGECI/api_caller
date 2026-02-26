@@ -4,6 +4,9 @@ import pandas as pd
 import requests
 import typer
 import io
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 cli = typer.Typer()
 
@@ -226,6 +229,8 @@ def write_csv_probability(
         url,
         files={"file": (input_path, file_like, "text/csv")},
         data=data,
+        stream=True,
+        timeout=600,
     )
     response.raise_for_status()
     json_data = response.json()

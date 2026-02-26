@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [1.0.1] - 2026-02-26
+### Fixed
+- Add 10 minutes timeout to `write_csv_probability` CLI command
+
 ## [1.0.0] - 2026-02-26
 ### Changed
 - All the CLI commands now uses `POST` method to call the API.

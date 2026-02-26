@@ -91,26 +91,29 @@ def tests_write_aerial_monitoring():
     gtt.assert_exist(output_path)
 
 
-@pytest.mark.skip(reason="not yet")
 def tests_filter_by_method():
     command = "filter-by-method"
     result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert " Extraction method " in result.stdout
 
+    input_path = "tests/data/terrestrial_hunting.csv"
+    output_path = "filtered_data.csv"
+    gtt.if_exist_remove(output_path)
     result = runner.invoke(
         cli,
         [
             command,
             "--input-path",
-            "effort_captures.csv",
+            input_path,
             "--method",
-            "aerea",
+            "Cacería terrestre",
             "--output-path",
-            "filtered_data.csv",
+            output_path,
         ],
     )
-    assert "500" in result.stdout
+    assert "200" in result.stdout
+    gtt.assert_exist(output_path)
 
 
 def tests_write_population_status():

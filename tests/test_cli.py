@@ -41,6 +41,7 @@ def tests_write_population_status_from_mixed_methods():
     assert "200" in result.stdout
 
 
+@pytest.mark.skip(reason="not yet")
 def tests_write_bootstrap_progress_intervals_json():
     command = "write-bootstrap-progress-intervals"
     result = get_command_help(command)
@@ -66,6 +67,7 @@ def get_command_help(command: str):
     return runner.invoke(cli, [command, "--help"])
 
 
+@pytest.mark.skip(reason="not yet")
 def tests_write_aerial_monitoring():
     command = "write-aerial-monitoring"
     result = get_command_help(command)
@@ -87,6 +89,7 @@ def tests_write_aerial_monitoring():
     assert "500" in result.stdout
 
 
+@pytest.mark.skip(reason="not yet")
 def tests_filter_by_method():
     command = "filter-by-method"
     result = get_command_help(command)

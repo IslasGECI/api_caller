@@ -118,13 +118,17 @@ def write_population_status_from_mixed_methods(
     second_method_status: str = typer.Option(),
     output_path: str = typer.Option(),
 ):
-    entrypoint_name = "/write_population_status_from_mixed_methods"
-    get_eradication_progress(
-        entrypoint_name,
-        first_method_status=first_method_status,
-        second_method_status=second_method_status,
-        output_path=output_path,
-    )
+    url = "http://islasgeci.org:100/write_population_status_from_mixed_methods"
+    first_method_file_like = read_file_as_buffer(first_method_status)
+    second_method_file_like = read_file_as_buffer(second_method_status)
+    files = {
+        "first_method_status": (first_method_status, first_method_file_like, "application/json"),
+        "second_method_status": (second_method_status, second_method_file_like, "application/json"),
+    }
+    response = requests.post(url, files=files)
+    print(response.status_code)
+    with open(output_path, "w") as out_file:
+        json.dump(response.json(), out_file, indent=2)
 
 
 @cli.command()

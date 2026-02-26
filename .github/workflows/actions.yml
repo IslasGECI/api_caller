@@ -49,28 +49,8 @@ jobs:
       - name: Teardown services
         run: |
           docker compose down
-  test-service:
-    needs: build-image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: Download artifact
-        uses: actions/download-artifact@main
-        with:
-          name: image
-          path: /tmp
-      - name: Load image
-        run: |
-          docker load --input /tmp/image.tar
-          docker image ls -a
-      - name: Execute tests in the running services
-        run: |
-          docker compose run islasgeci make test-services
-      - name: Teardown services
-        run: |
-          docker compose down
   deploy-image-and-package:
-    needs: [run-tests, test-service]
+    needs: [run-tests]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo

@@ -95,13 +95,18 @@ def filter_by_method(
     method: str = typer.Option(help="Extraction method"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    entrypoint_name = "/filter_by_method"
-    get_eradication_progress(
-        entrypoint_name,
-        input_path=input_path,
-        method=method,
-        output_path=output_path,
-    )
+    url = "http://islasgeci.org:100/filter_by_method"
+    input_file_like = read_file_as_buffer(input_path)
+    files = {
+        "input_path": (input_path, input_file_like, "text/csv"),
+    }
+    data = {"method": method}
+    response = requests.post(url, files=files, data=data)
+    print(response.status_code)
+    response.raise_for_status()
+    content = response.json()
+    df = pd.DataFrame(content)
+    df.to_csv(output_path, index=False)
 
 
 @cli.command()

@@ -1,18 +1,4 @@
 from geci_caller.call_api import construct_entrypoint_url
-from geci_caller.cli import (
-    construct_entrypoint_url_write_aerial_monitoring,
-    get_eradication_progress,
-)
-
-import requests_mock
-
-
-def tests_get_service_entrypoint():
-    with requests_mock.Mocker() as m:
-        entrypoint_name = "/plot_custom_cpue_vs_cum_captures"
-        m.get(f"http://eradication_progress:10000{entrypoint_name}")
-        get_eradication_progress(entrypoint_name)
-        assert m.call_count == 1
 
 
 def test_construct_entrypoint_url():
@@ -37,11 +23,3 @@ def test_construct_entrypoint_url():
     obtained_url = construct_entrypoint_url(service_name, port, entrypoint_name, **options)
     expect_url = "http://edr_api:10001/write_csv?uno=1&dos=dos"
     assert obtained_url == expect_url
-
-
-def test_construct_entrypoint_url_write_aerial_monitoring():
-    expected_url = "http://eradication_progress:10000/write_aerial_monitoring?input_path=input_path&bootstrapping_number=bootstrapping_number&output_path=output_path"
-    obtained_url = construct_entrypoint_url_write_aerial_monitoring(
-        "input_path", "bootstrapping_number", "output_path"
-    )
-    assert obtained_url == expected_url

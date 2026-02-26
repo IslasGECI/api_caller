@@ -1,4 +1,3 @@
-from geci_caller.call_api import construct_entrypoint_url
 import geci_caller as gc
 import json
 import pandas as pd
@@ -296,30 +295,6 @@ def read_file_as_buffer(file_path):
     return buffer_file
 
 
-def get_eradication_progress(entrypoint_name, **kwargs):
-    url = construct_entrypoint_url("eradication_progress", 10000, entrypoint_name, **kwargs)
-    response = requests.get(url)
-    print(response.status_code)
-
-
 def write_response_content(output_path, response):
     with open(output_path, "wb") as out_file:
         out_file.write(response.content)
-
-
-def get_eradication_progress_write_aerial_monitoring(**kwargs):
-    url = construct_entrypoint_url_write_aerial_monitoring(**kwargs)
-    response = requests.get(url)
-    print(response.status_code)
-    response.raise_for_status()
-
-
-def construct_entrypoint_url_write_aerial_monitoring(input_path, bootstrapping_number, output_path):
-    return construct_entrypoint_url(
-        "eradication_progress",
-        10000,
-        "/write_aerial_monitoring",
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-    )

@@ -66,26 +66,29 @@ def get_command_help(command: str):
     return runner.invoke(cli, [command, "--help"])
 
 
-@pytest.mark.skip(reason="not yet")
 def tests_write_aerial_monitoring():
     command = "write-aerial-monitoring"
     result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert "--bootstrapping-number " in result.stdout
     assert " Number of bootstraps " in result.stdout
+    input_path = "tests/data/monitoreo_cabras_magdalena.csv"
+    output_path = "aerial_monitoring.json"
+    gtt.if_exist_remove(output_path)
     result = runner.invoke(
         cli,
         [
             command,
             "--input-path",
-            "effort_captures.csv",
+            input_path,
             "--bootstrapping-number",
             10,
             "--output-path",
-            "filtered_data.json",
+            output_path,
         ],
     )
-    assert "500" in result.stdout
+    assert "200" in result.stdout
+    gtt.assert_exist(output_path)
 
 
 @pytest.mark.skip(reason="not yet")

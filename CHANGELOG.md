@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [1.0.0] - 2026-02-26
+### Changed
+- All the CLI commands now uses `POST` method to call the API.
+
 ## [0.21.0] - 2026-02-19
 ### Added
 - CLI command `write_posterior_results`. This command runs a posterior distribution of population ecological bayesian model. The bayesian analysis is performed using the package `Stan`
@@ -117,7 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2023-08-31
 
 
-[unreleased]: https://github.com/IslasGECI/api_caller/compare/v0.6.0...HEAD
+[unreleased]: https://github.com/IslasGECI/api_caller/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/IslasGECI/api_caller/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/IslasGECI/api_caller/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/IslasGECI/api_caller/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/IslasGECI/api_caller/tag/v0.4.0

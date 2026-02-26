@@ -76,12 +76,17 @@ def write_bootstrap_progress_intervals(
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
     entrypoint_name = "/write_bootstrap_progress_intervals_json"
-    get_eradication_progress(
-        entrypoint_name,
-        input_path=input_path,
-        bootstrapping_number=bootstrapping_number,
-        output_path=output_path,
-    )
+    url = f"http://islasgeci.org:100{entrypoint_name}"
+    input_file_like = read_file_as_buffer(input_path)
+    files = {
+        "input_path": (input_path, input_file_like, "text/csv"),
+    }
+    data = {"bootstrapping_number": bootstrapping_number}
+    response = requests.post(url, files=files, data=data)
+    with open(output_path, "w") as out_file:
+        json.dump(response.json(), out_file, indent=2)
+    print(response.status_code)
+    return response
 
 
 @cli.command()

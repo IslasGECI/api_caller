@@ -41,7 +41,6 @@ def tests_write_population_status_from_mixed_methods():
     assert "200" in result.stdout
 
 
-@pytest.mark.skip(reason="not yet")
 def tests_write_bootstrap_progress_intervals_json():
     command = "write-bootstrap-progress-intervals"
     result = get_command_help(command)

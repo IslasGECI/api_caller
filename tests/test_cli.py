@@ -221,6 +221,13 @@ def tests_plot_comparative_yearly_cpue():
     gtt.assert_exist(output_path)
 
 
+def tests_write_instantaneous_and_cumulative_cpue():
+    command = "write-instantaneous-and-cumulative-cpue"
+    result = get_command_help(command)
+    assert_successful_command(result)
+    assert_input_path_argument(result)
+
+
 def tests_write_csv_probability_entrypoint():
     command = "write-csv-probability"
     result = get_command_help(command)

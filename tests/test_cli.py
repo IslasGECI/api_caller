@@ -230,7 +230,7 @@ def tests_write_instantaneous_and_cumulative_cpue():
     assert_argument(
         result, option_name="resolution", message="Temporal resolution: monthly, season"
     )
-    input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    input_path = "tests/data/esfuerzo_capturas_gatos_guadalupe_ISO_for_tests.csv"
     output_path = "cpue_and_cumulative_cpue.csv"
 
     gtt.if_exist_remove(output_path)
@@ -243,7 +243,8 @@ def tests_write_instantaneous_and_cumulative_cpue():
             input_path,
             "--output-path",
             output_path,
-            "--resoultion" "monthly",
+            "--resolution",
+            "monthly",
         ],
     )
     assert result.exit_code == 0

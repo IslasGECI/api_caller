@@ -451,6 +451,10 @@ def assert_input_path_argument(results):
     assert " Path of input data " in results.stdout
 
 
-def assert_output_path_argument(result, message="Path of figure to write"):
-    assert "--output-path " in result.stdout
+def assert_argument(result, option_name, message):
+    assert f"--{option_name}" in result.stdout
     assert f" {message} " in result.stdout
+
+
+def assert_output_path_argument(result, message="Path of figure to write"):
+    assert_argument(result, "output-path", message)

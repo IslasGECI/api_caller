@@ -210,6 +210,15 @@ def write_population_status(
 
 
 @cli.command()
+def write_instantaneous_and_cumulative_cpue(
+    input_path: str = typer.Option(help="Path of input data"),
+    # output_path: str = typer.Option(help="Path of csv file to write"),
+    # resolution: int = typer.Option(default=None, help="Temporal resolution"),
+):
+    pass
+
+
+@cli.command()
 def write_csv_probability(
     input_path: str = typer.Option(help="Path of input data"),
     bootstrapping_number: int = typer.Option(help="Number of bootstrap by window"),

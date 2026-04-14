@@ -400,7 +400,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert_command_with_input_and_output_paths(result)
     assert " Path of config file " in result.stdout
 
-    input_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
+    input_path = "tests/data/erradicacion_cabras_without_cpue.csv"
     config_path = "tests/data/hunt_config.json"
     format = "eps"
     output_path = f"figure.{format}"
@@ -416,6 +416,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
             output_path,
         ],
     )
+    assert result.exit_code == 0
     response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert result.exit_code == 0
     assert "200" in result.stdout

@@ -147,19 +147,6 @@ def tests_write_population_status():
     assert data["progress_probability"] == 1.0
 
 
-def test_call_entrypoint():
-    command = "write-csv-probability"
-    result = get_command_help(command)
-    assert_successful_command(result)
-    assert_input_path_argument(result)
-    assert "--bootstrapping-number " in result.stdout
-    assert " Number of bootstrap by window " in result.stdout
-    assert "--output-path " in result.stdout
-    assert " Path of csv file to write " in result.stdout
-    assert "--window-length " in result.stdout
-    assert " Number of months by window " in result.stdout
-
-
 def tests_write_probability_progress_figure():
     command = "write-probability-progress-figure"
     result = get_command_help(command)
@@ -235,6 +222,16 @@ def tests_plot_comparative_yearly_cpue():
 
 
 def tests_write_csv_probability_entrypoint():
+    command = "write-csv-probability"
+    result = get_command_help(command)
+    assert_successful_command(result)
+    assert_input_path_argument(result)
+    assert "--bootstrapping-number " in result.stdout
+    assert " Number of bootstrap by window " in result.stdout
+    assert "--output-path " in result.stdout
+    assert " Path of csv file to write " in result.stdout
+    assert "--window-length " in result.stdout
+    assert " Number of months by window " in result.stdout
     input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     output_path = "probabilities.csv"
 

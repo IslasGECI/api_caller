@@ -230,6 +230,24 @@ def tests_write_instantaneous_and_cumulative_cpue():
     assert_argument(
         result, option_name="resolution", message="Temporal resolution: monthly, season"
     )
+    input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    output_path = "cpue_and_cumulative_cpue.csv"
+
+    gtt.if_exist_remove(output_path)
+
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+            "--resoultion" "monthly",
+        ],
+    )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
 
 
 def tests_write_csv_probability_entrypoint():

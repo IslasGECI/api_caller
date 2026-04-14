@@ -213,9 +213,26 @@ def write_population_status(
 def write_instantaneous_and_cumulative_cpue(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path to write"),
-    resolution: int = typer.Option(default=None, help="Temporal resolution: monthly, season"),
+    resolution: str = typer.Option(default=None, help="Temporal resolution: monthly, season"),
 ):
-    pass
+    entrypoint_name = "/compute_instantaneous_and_cumulative_cpue"
+    url = f"http://islasgeci.org:100{entrypoint_name}"
+    data = {
+        "resolution": resolution,
+    }
+    file_like = read_file_as_buffer(input_path)
+    response = requests.post(
+        url,
+        files={"input_path": (input_path, file_like, "text/csv")},
+        data=data,
+        stream=True,
+        timeout=600,
+    )
+    response.raise_for_status()
+    json_data = response.json()
+    df = pd.DataFrame(json_data)
+    df.to_csv(output_path, index=False)
+    return response
 
 
 @cli.command()

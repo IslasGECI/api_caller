@@ -226,6 +226,10 @@ def tests_write_instantaneous_and_cumulative_cpue():
     result = get_command_help(command)
     assert_successful_command(result)
     assert_input_path_argument(result)
+    assert_output_path_argument(result, message="Path to write")
+    assert_argument(
+        result, option_name="resolution", message="Temporal resolution: monthly, season"
+    )
 
 
 def tests_write_csv_probability_entrypoint():

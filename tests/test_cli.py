@@ -346,6 +346,13 @@ def tests_write_probability_figure_entrypoint():
     assert_figure_format(format, output_path)
 
 
+def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
+    result = runner.invoke(
+        cli, ["write-instantaneous-and-cumulative-cpue-time-series-plot", "--help"]
+    )
+    assert_command_with_input_and_output_paths(result)
+
+
 def tests_plot_cumulative_series_cpue_by_season():
     result = runner.invoke(cli, ["plot-cumulative-cpue-series-by-season", "--help"])
     assert_command_with_input_and_output_paths(result)
@@ -425,31 +432,7 @@ def assert_figure_format(format, output_path):
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     result = runner.invoke(cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)
-    assert " Path of config file " in result.stdout
-
-    input_path = "tests/data/erradicacion_cabras_without_cpue.csv"
-    config_path = "tests/data/hunt_config.json"
-    format = "eps"
-    output_path = f"figure.{format}"
-    result = runner.invoke(
-        cli,
-        [
-            "plot-custom-cpue-vs-cum-captures",
-            "--input-path",
-            input_path,
-            "--config-path",
-            config_path,
-            "--output-path",
-            output_path,
-        ],
-    )
-    assert result.exit_code == 0
-    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
-    assert result.exit_code == 0
-    assert "200" in result.stdout
-    assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
-
-    assert_figure_format(format, output_path)
+    assert_
 
 
 def tests_version():

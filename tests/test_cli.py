@@ -347,10 +347,23 @@ def tests_write_probability_figure_entrypoint():
 
 
 def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
-    result = runner.invoke(
-        cli, ["write-instantaneous-and-cumulative-cpue-time-series-plot", "--help"]
-    )
+    command = "write-instantaneous-and-cumulative-cpue-time-series-plot"
+    result = runner.invoke(cli, [command, "--help"])
     assert_command_with_input_and_output_paths(result)
+    output_path = "cumulative_by_season.png"
+    input_path = "tests/data/cpue_and_cumulative_cpue.csv"
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert_succesfull_command(result)
+    gtt.assert_exist(output_path)
 
 
 def tests_plot_cumulative_series_cpue_by_season():

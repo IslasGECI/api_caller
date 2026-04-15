@@ -319,7 +319,14 @@ def write_instantaneous_and_cumulative_cpue_time_series_plot(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):
-    pass
+    url = "http://islasgeci.org:100/write_instantaneous_and_cumulative_cpue_time_series_plot"
+    input_file_like = read_file_as_buffer(input_path)
+    files = {"file": (input_path, input_file_like, "text/csv")}
+    extension = output_path.split(".")[-1]
+    response = requests.post(url, files=files, data={"format": extension})
+    write_response_content(output_path, response)
+    print(response.status_code)
+    return response
 
 
 @cli.command()

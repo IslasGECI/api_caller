@@ -8,13 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- CLI command `/write_instantaneous_and_cumulative_cpue`
-- CLI command `/write-instantaneous-and-cumulative-cpue-time-series-plot`
 
 ### Fixed
 
 ### Changed
-- CLI command `plot_custom_cpue_vs_cum_captures()` now needs data with captures and effort. This fix change on [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
+
 ### Removed
 
 ## [2.0.0] - 2026-04-15

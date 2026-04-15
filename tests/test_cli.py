@@ -432,7 +432,6 @@ def assert_figure_format(format, output_path):
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     result = runner.invoke(cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)
-    assert_
 
 
 def tests_version():

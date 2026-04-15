@@ -365,6 +365,7 @@ def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
     )
     assert_successful_command(result)
     gtt.assert_exist(output_path)
+    assert "200" in result.stdout
 
 
 def tests_plot_cumulative_series_cpue_by_season():

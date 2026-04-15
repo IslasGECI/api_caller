@@ -350,7 +350,8 @@ def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
     command = "write-instantaneous-and-cumulative-cpue-time-series-plot"
     result = runner.invoke(cli, [command, "--help"])
     assert_command_with_input_and_output_paths(result)
-    output_path = "cumulative_by_season.png"
+    output_path = "cumulative_cpue_plot.png"
+    gtt.if_exist_remove(output_path)
     input_path = "tests/data/cpue_and_cumulative_cpue.csv"
     result = runner.invoke(
         cli,
@@ -362,7 +363,7 @@ def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
             output_path,
         ],
     )
-    assert_succesfull_command(result)
+    assert_successful_command(result)
     gtt.assert_exist(output_path)
 
 

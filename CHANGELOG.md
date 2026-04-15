@@ -9,12 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - CLI command `/write_instantaneous_and_cumulative_cpue`
+- CLI command `/write-instantaneous-and-cumulative-cpue-time-series-plot`
 
 ### Fixed
 
 ### Changed
 - CLI command `plot_custom_cpue_vs_cum_captures()` now needs data with captures and effort. This fix change on [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
 ### Removed
+
+## [2.0.0] - 2026-04-15
+### Added
+- CLI command `/write_instantaneous_and_cumulative_cpue`
+- CLI command `/write-instantaneous-and-cumulative-cpue-time-series-plot`
+
+### Changed
+- CLI command `plot_custom_cpue_vs_cum_captures()` now needs data with captures and effort. This fix change on [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
 
 ## [1.0.1] - 2026-02-26
 ### Fixed
@@ -126,7 +135,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2023-08-31
 
 
-[unreleased]: https://github.com/IslasGECI/api_caller/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/IslasGECI/api_caller/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/IslasGECI/api_caller/compare/v1.0.1...v2.0.0
+[1.0.1]: https://github.com/IslasGECI/api_caller/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/IslasGECI/api_caller/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/IslasGECI/api_caller/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/IslasGECI/api_caller/compare/v0.4.0...v0.5.0

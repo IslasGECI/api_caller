@@ -447,13 +447,37 @@ def assert_figure_format(format, output_path):
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     result = runner.invoke(cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
     assert_command_with_input_and_output_paths(result)
+    assert " Path of config file " in result.stdout
+
+    input_path = "tests/data/erradicacion_cabras_without_cpue.csv"
+    config_path = "tests/data/hunt_config.json"
+    format = "eps"
+    output_path = f"figure.{format}"
+    result = runner.invoke(
+        cli,
+        [
+            "plot-custom-cpue-vs-cum-captures",
+            "--input-path",
+            input_path,
+            "--config-path",
+            config_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
+    assert result.exit_code == 0
+    assert "200" in result.stdout
+    assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
+
+    assert_figure_format(format, output_path)
 
 
 def tests_version():
     obtained_result = get_command_help("version")
     assert_successful_command(obtained_result)
     obtained_result = runner.invoke(cli, ["version"])
-    assert "1.0.1" in obtained_result.stdout
+    assert "2.0.0" in obtained_result.stdout
 
 
 def assert_command_with_input_and_output_paths(result):

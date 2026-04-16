@@ -346,8 +346,8 @@ def tests_write_probability_figure_entrypoint():
     assert_figure_format(format, output_path)
 
 
-def tests_write_instantaneous_and_cumulative_cpue_time_series_plot():
-    command = "write-instantaneous-and-cumulative-cpue-time-series-plot"
+def tests_render_instantaneous_and_cumulative_cpue_time_series():
+    command = "render-instantaneous-and-cumulative-cpue-time-series"
     result = runner.invoke(cli, [command, "--help"])
     assert_command_with_input_and_output_paths(result)
     output_path = "cumulative_cpue_plot.png"

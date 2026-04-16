@@ -315,7 +315,7 @@ def plot_cpue_vs_cum_captures(
 
 
 @cli.command()
-def write_instantaneous_and_cumulative_cpue_time_series_plot(
+def render_instantaneous_and_cumulative_cpue_time_series(
     input_path: str = typer.Option(help="Path of input data"),
     output_path: str = typer.Option(help="Path of figure to write"),
 ):

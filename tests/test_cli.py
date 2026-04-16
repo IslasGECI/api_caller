@@ -38,7 +38,7 @@ def tests_write_population_status_from_mixed_methods():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
 
 
 def tests_write_bootstrap_progress_intervals_json():
@@ -59,11 +59,7 @@ def tests_write_bootstrap_progress_intervals_json():
             "progress_intervals.json",
         ],
     )
-    assert "200" in result.stdout
-
-
-def get_command_help(command: str):
-    return runner.invoke(cli, [command, "--help"])
+    assert_code_200(result)
 
 
 def tests_write_aerial_monitoring():
@@ -87,7 +83,7 @@ def tests_write_aerial_monitoring():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     gtt.assert_exist(output_path)
 
 
@@ -112,7 +108,7 @@ def tests_filter_by_method():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     gtt.assert_exist(output_path)
 
 
@@ -141,6 +137,7 @@ def tests_write_population_status():
         ],
     )
     assert result.exit_code == 0
+    assert_code_200(result)
     with open(output_path) as f:
         data = json.load(f)
     assert data["capturas"] == 11
@@ -184,7 +181,7 @@ def tests_plot_comparative_catch_curves():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     response = plot_comparative_catch_curves(socorro_path, guadalupe_path, output_path)
     assert "http://islasgeci.org:100/plot_comparative_catch_curves" in response.url
     gtt.assert_exist(output_path)
@@ -215,7 +212,7 @@ def tests_plot_comparative_yearly_cpue():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     response = plot_comparative_yearly_cpue(socorro_path, guadalupe_path, output_path)
     assert "http://islasgeci.org:100/plot_comparative_yearly_cpue" in response.url
     gtt.assert_exist(output_path)
@@ -249,6 +246,7 @@ def tests_write_instantaneous_and_cumulative_cpue():
     )
     assert result.exit_code == 0
     assert os.path.exists(output_path)
+    assert_code_200(result)
 
 
 def tests_write_csv_probability_entrypoint():
@@ -285,6 +283,7 @@ def tests_write_csv_probability_entrypoint():
     )
     assert result.exit_code == 0
     assert os.path.exists(output_path)
+    assert_code_200(result)
 
     response = write_csv_probability(
         input_path, bootstrapping_number, output_path, window_length, None
@@ -319,6 +318,7 @@ def tests_write_posterior_results():
     )
     assert result.exit_code == 0
     assert os.path.exists(output_path)
+    assert_code_200(result)
 
 
 def tests_write_probability_figure_entrypoint():
@@ -337,7 +337,7 @@ def tests_write_probability_figure_entrypoint():
         ],
     )
     assert result.exit_code == 0
-    assert "200" in result.stdout
+    assert_code_200(result)
 
     response = write_probability_progress_figure(input_path, output_path)
     assert "http://islasgeci.org:100/write_probability_figure" in response.url
@@ -365,7 +365,7 @@ def tests_render_instantaneous_and_cumulative_cpue_time_series():
     )
     assert_successful_command(result)
     gtt.assert_exist(output_path)
-    assert "200" in result.stdout
+    assert_code_200(result)
 
 
 def tests_plot_cumulative_series_cpue_by_season():
@@ -384,7 +384,7 @@ def tests_plot_cumulative_series_cpue_by_season():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     response = plot_cumulative_cpue_series_by_season(input_path, output_path)
     assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_season" in response.url
 
@@ -409,7 +409,7 @@ def tests_plot_cumulative_series_cpue_by_flight_entrypoint():
             output_path,
         ],
     )
-    assert "200" in result.stdout
+    assert_code_200(result)
     response = plot_cumulative_series_cpue_by_flight(input_path, output_path)
     assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_flight" in response.url
 
@@ -430,18 +430,13 @@ def tests_plot_cpue_vs_cum_captures_entrypoint():
         ],
     )
     assert result.exit_code == 0
-    assert "200" in result.stdout
+    assert_code_200(result)
 
     response = plot_cpue_vs_cum_captures(input_path, output_path)
     assert "http://islasgeci.org:100/plot_cpue_vs_cum_captures" in response.url
     gtt.assert_exist(output_path)
 
     assert_figure_format(format, output_path)
-
-
-def assert_figure_format(format, output_path):
-    with Image.open(output_path) as img:
-        assert img.format == format.upper()
 
 
 def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
@@ -467,7 +462,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     )
     response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert result.exit_code == 0
-    assert "200" in result.stdout
+    assert_code_200(result)
     assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
 
     assert_figure_format(format, output_path)
@@ -490,6 +485,14 @@ def assert_successful_command(result):
     assert result.exit_code == 0
 
 
+def get_command_help(command: str):
+    return runner.invoke(cli, [command, "--help"])
+
+
+def assert_code_200(result):
+    assert "200" in result.stdout
+
+
 def assert_input_path_argument(results):
     assert "--input-path " in results.stdout
     assert " Path of input data " in results.stdout
@@ -498,6 +501,11 @@ def assert_input_path_argument(results):
 def assert_argument(result, option_name, message):
     assert f"--{option_name}" in result.stdout
     assert f" {message} " in result.stdout
+
+
+def assert_figure_format(format, output_path):
+    with Image.open(output_path) as img:
+        assert img.format == format.upper()
 
 
 def assert_output_path_argument(result, message="Path of figure to write"):

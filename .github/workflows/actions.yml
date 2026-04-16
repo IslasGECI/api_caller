@@ -104,3 +104,14 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
+
+  cleanup-artifacts:
+    name: Delete temporary artifacts
+    if: always()
+    needs: [deploy-image-and-package]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Docker image artifact
+        uses: geekyeggo/delete-artifact@main
+        with:
+          name: image

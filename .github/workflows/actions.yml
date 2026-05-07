@@ -51,6 +51,7 @@ jobs:
         run: |
           docker compose down
   deploy-image-and-package:
+    if: github.ref_name == "develop"
     needs: [run-tests]
     runs-on: ubuntu-latest
     steps:

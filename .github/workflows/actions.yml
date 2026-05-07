@@ -52,7 +52,7 @@ jobs:
           docker compose down
   deploy-image-and-package:
     needs: [run-tests]
-    if: github.ref_name == "develop"
+    if: github.ref_name == 'develop'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo

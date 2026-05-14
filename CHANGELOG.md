@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Changed
-- CLI command `plot-custom-cpue-vs-cum_captures` now needs data with captures and effort. This fixes a change introduced in [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
+- CLI command `plot-custom-cpue-vs-cum-captures` now needs data with captures and effort. This fixes a change introduced in [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
 ### Removed
 
 ## [1.0.1] - 2026-02-26

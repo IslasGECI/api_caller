@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "geci-caller"
 type: software
-abstract: "General purpose command line interface (CLI) for calling GECI services."
+abstract: "CLI tool for interfacing with IslasGECI's ecological modeling APIs to support island conservation and invasive species eradication campaigns, including CPUE calculations, population status modeling, and visualization"
 authors:
   - family-names: Olvera-Guerrero
     given-names: Guillermo
@@ -22,8 +22,14 @@ identifiers:
     value: "https://github.com/IslasGECI/geci_caller"
 repository-code: "https://github.com/IslasGECI/geci_caller"
 url: "https://github.com/IslasGECI/geci_caller"
-license: "AGPL-3.0"
+license: "AGPL-3.0-or-later"
 version: 1.0.1
 date-released: "2026-02-26"
 keywords:
-  - "CLI"
+  - api-client
+  - cli
+  - conservation
+  - ecology
+  - eradication
+  - islands
+  - mexico

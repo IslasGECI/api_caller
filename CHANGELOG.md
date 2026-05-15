@@ -8,16 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- CLI command `write-instantaneous-and-cumulative-cpue` that writes a CSV containing CPUE and its cumulative sum over time.
 
 ### Fixed
 
 ### Changed
-
+- CLI command `plot-custom-cpue-vs-cum-captures` now needs data with captures and effort. This fixes a change introduced in [eradication_data_requirements v8.1.0](https://github.com/IslasGECI/eradication_data_requirements/compare/v8.0.1...v8.1.0).
 ### Removed
 
 ## [1.0.1] - 2026-02-26
 ### Fixed
-- Add 10 minutes timeout to `write_csv_probability` CLI command
+- Add 10 minutes timeout to `write-csv-probability` CLI command
 
 ## [1.0.0] - 2026-02-26
 ### Changed
@@ -25,11 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.21.0] - 2026-02-19
 ### Added
-- CLI command `write_posterior_results`. This command runs a posterior distribution of population ecological bayesian model. The bayesian analysis is performed using the package `Stan`
+- CLI command `write-posterior-results`. This command runs a posterior distribution of population ecological bayesian model. The bayesian analysis is performed using the package `Stan`
 
 ## [0.20.0] - 2026-02-12
 ### Added
-- CLI command `write_csv_probability` now have `resolution` option.
+- CLI command `write-csv-probability` now have `resolution` option.
 
 
 ## [0.19.0] - 2025-09-04
@@ -125,8 +126,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2023-08-31
 
 
-[unreleased]: https://github.com/IslasGECI/api_caller/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/IslasGECI/api_caller/compare/v0.6.0...v1.0.0
+[unreleased]: https://github.com/IslasGECI/api_caller/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/IslasGECI/api_caller/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/IslasGECI/api_caller/compare/v0.21.0...v1.0.0
+[0.21.0]: https://github.com/IslasGECI/api_caller/compare/v0.20.0...v0.21.0
+[0.20.0]: https://github.com/IslasGECI/api_caller/compare/v0.19.0...v0.20.0
+[0.19.0]: https://github.com/IslasGECI/api_caller/compare/v0.18.0...v0.19.0
+[0.18.0]: https://github.com/IslasGECI/api_caller/compare/v0.17.0...v0.18.0
+[0.17.0]: https://github.com/IslasGECI/api_caller/compare/v0.16.0...v0.17.0
+[0.16.0]: https://github.com/IslasGECI/api_caller/compare/v0.15.0...v0.16.0
+[0.15.0]: https://github.com/IslasGECI/api_caller/compare/v0.14.0...v0.15.0
+[0.14.0]: https://github.com/IslasGECI/api_caller/compare/v0.13.0...v0.14.0
+[0.13.0]: https://github.com/IslasGECI/api_caller/compare/v0.12.0...v0.13.0
+[0.12.0]: https://github.com/IslasGECI/api_caller/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/IslasGECI/api_caller/compare/v0.10.1...v0.11.0
+[0.10.1]: https://github.com/IslasGECI/api_caller/compare/v0.10.0...v0.10.1
+[0.10.0]: https://github.com/IslasGECI/api_caller/compare/v0.9.0...v0.10.0
+[0.9.0]: https://github.com/IslasGECI/api_caller/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/IslasGECI/api_caller/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/IslasGECI/api_caller/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/IslasGECI/api_caller/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/IslasGECI/api_caller/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/IslasGECI/api_caller/tag/v0.4.0

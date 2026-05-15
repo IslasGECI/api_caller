@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+      - feature/*
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -51,6 +52,7 @@ jobs:
           docker compose down
   deploy-image-and-package:
     needs: [run-tests]
+    if: github.ref_name == 'develop'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -103,3 +105,4 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
+        skip-existing: true

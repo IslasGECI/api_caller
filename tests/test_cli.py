@@ -147,19 +147,6 @@ def tests_write_population_status():
     assert data["progress_probability"] == 1.0
 
 
-def test_call_entrypoint():
-    command = "write-csv-probability"
-    result = get_command_help(command)
-    assert_successful_command(result)
-    assert_input_path_argument(result)
-    assert "--bootstrapping-number " in result.stdout
-    assert " Number of bootstrap by window " in result.stdout
-    assert "--output-path " in result.stdout
-    assert " Path of csv file to write " in result.stdout
-    assert "--window-length " in result.stdout
-    assert " Number of months by window " in result.stdout
-
-
 def tests_write_probability_progress_figure():
     command = "write-probability-progress-figure"
     result = get_command_help(command)
@@ -234,7 +221,47 @@ def tests_plot_comparative_yearly_cpue():
     gtt.assert_exist(output_path)
 
 
+def tests_write_instantaneous_and_cumulative_cpue():
+    command = "write-instantaneous-and-cumulative-cpue"
+    result = get_command_help(command)
+    assert_successful_command(result)
+    assert_input_path_argument(result)
+    assert_output_path_argument(result, message="Path to write")
+    assert_argument(
+        result, option_name="resolution", message="Temporal resolution: monthly, season"
+    )
+    input_path = "tests/data/esfuerzo_capturas_gatos_guadalupe_ISO_for_tests.csv"
+    output_path = "cpue_and_cumulative_cpue.csv"
+
+    gtt.if_exist_remove(output_path)
+
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+            "--resolution",
+            "monthly",
+        ],
+    )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
+
+
 def tests_write_csv_probability_entrypoint():
+    command = "write-csv-probability"
+    result = get_command_help(command)
+    assert_successful_command(result)
+    assert_input_path_argument(result)
+    assert "--bootstrapping-number " in result.stdout
+    assert " Number of bootstrap by window " in result.stdout
+    assert "--output-path " in result.stdout
+    assert " Path of csv file to write " in result.stdout
+    assert "--window-length " in result.stdout
+    assert " Number of months by window " in result.stdout
     input_path = "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     output_path = "probabilities.csv"
 
@@ -400,7 +427,7 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
     assert_command_with_input_and_output_paths(result)
     assert " Path of config file " in result.stdout
 
-    input_path = "tests/data/cumulative_effort_and_captures_for_year.csv"
+    input_path = "tests/data/erradicacion_cabras_without_cpue.csv"
     config_path = "tests/data/hunt_config.json"
     format = "eps"
     output_path = f"figure.{format}"
@@ -416,9 +443,10 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
             output_path,
         ],
     )
-    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert result.exit_code == 0
     assert "200" in result.stdout
+
+    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
 
     assert_figure_format(format, output_path)
@@ -446,6 +474,10 @@ def assert_input_path_argument(results):
     assert " Path of input data " in results.stdout
 
 
-def assert_output_path_argument(result):
-    assert "--output-path " in result.stdout
-    assert " Path of figure to write " in result.stdout
+def assert_argument(result, option_name, message):
+    assert f"--{option_name}" in result.stdout
+    assert f" {message} " in result.stdout
+
+
+def assert_output_path_argument(result, message="Path of figure to write"):
+    assert_argument(result, "output-path", message)

@@ -506,5 +506,6 @@ def assert_figure_format(format, output_path):
     with Image.open(output_path) as img:
         assert img.format == format.upper()
 
+
 def assert_output_path_argument(result, message="Path of figure to write"):
     assert_argument(result, "output-path", message)

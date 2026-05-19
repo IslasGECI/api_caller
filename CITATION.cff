@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "geci-caller"
+type: software
+abstract: "CLI tool for interfacing with IslasGECI's ecological modeling APIs to support island conservation and invasive species eradication campaigns, including CPUE calculations, population status modeling, and visualization"
+authors:
+  - family-names: Olvera-Guerrero
+    given-names: Guillermo
+    orcid: "https://orcid.org/0000-0002-6900-5315"
+  - family-names: Villasante-Barahona
+    given-names: Mario
+    orcid: "https://orcid.org/0009-0001-7867-8570"
+  - family-names: Rojas-Mayoral
+    given-names: Evaristo
+    orcid: "https://orcid.org/0000-0001-6812-9562"
+contact:
+  - family-names: Rojas-Mayoral
+    given-names: Evaristo
+    orcid: "https://orcid.org/0000-0001-6812-9562"
+identifiers:
+  - type: url
+    value: "https://github.com/IslasGECI/geci_caller"
+repository-code: "https://github.com/IslasGECI/geci_caller"
+url: "https://github.com/IslasGECI/geci_caller"
+license: "AGPL-3.0-or-later"
+version: 1.0.1
+date-released: "2026-02-26"
+keywords:
+  - api-client
+  - cli
+  - conservation
+  - ecology
+  - eradication
+  - islands
+  - mexico

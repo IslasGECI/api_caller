@@ -460,11 +460,10 @@ def tests_plot_custom_cpue_vs_cum_captures_entrypoint():
             output_path,
         ],
     )
-    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert result.exit_code == 0
     assert_code_200(result)
+    response = plot_custom_cpue_vs_cum_captures(input_path, config_path, output_path)
     assert "http://islasgeci.org:100/plot_custom_cpue_vs_cum_captures" in response.url
-
     assert_figure_format(format, output_path)
 
 
@@ -506,7 +505,6 @@ def assert_argument(result, option_name, message):
 def assert_figure_format(format, output_path):
     with Image.open(output_path) as img:
         assert img.format == format.upper()
-
 
 def assert_output_path_argument(result, message="Path of figure to write"):
     assert_argument(result, "output-path", message)

@@ -14,8 +14,6 @@ from typer.testing import CliRunner
 import json
 import os
 from PIL import Image
-import pytest
-from requests import HTTPError
 
 runner = CliRunner()
 
@@ -390,8 +388,18 @@ def test_plot_cumulative_series_cpue_by_season():
     assert "http://islasgeci.org:100/plot_cumulative_series_cpue_by_season" in response.url
 
     input_path = "tests/data/feral_goat_aerial_monitoring.csv"
-    with pytest.raises(HTTPError):
-        plot_cumulative_cpue_series_by_season(input_path, output_path)
+    result = runner.invoke(
+        cli,
+        [
+            command,
+            "--input-path",
+            input_path,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 1
+    assert result.exception.response.status_code == 500
 
 
 def test_plot_cumulative_series_cpue_by_flight_entrypoint():

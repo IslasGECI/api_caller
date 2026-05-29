@@ -29,8 +29,7 @@ def write_posterior_results(
         ),
     }
     response = requests.post(url, files=files)
-    print(response.status_code)
-    response.raise_for_status()
+    print_status_code(response)
     json_data = response.json()
     df = pd.DataFrame(json_data)
     df.to_csv(output_path, index=False)
@@ -50,8 +49,7 @@ def plot_cumulative_cpue_series_by_season(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    response.raise_for_status()
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -68,7 +66,7 @@ def plot_cumulative_series_cpue_by_flight(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -88,7 +86,7 @@ def write_bootstrap_progress_intervals(
     response = requests.post(url, files=files, data=data)
     with open(output_path, "w") as out_file:
         json.dump(response.json(), out_file, indent=2)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -105,8 +103,7 @@ def filter_by_method(
     }
     data = {"method": method}
     response = requests.post(url, files=files, data=data)
-    print(response.status_code)
-    response.raise_for_status()
+    print_status_code(response)
     content = response.json()
     df = pd.DataFrame(content)
     df.to_csv(output_path, index=False)
@@ -128,7 +125,7 @@ def write_aerial_monitoring(
     response = requests.post(url, files=files, data=data)
     with open(output_path, "w") as out_file:
         json.dump(response.json(), out_file, indent=2)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -146,7 +143,7 @@ def write_population_status_from_mixed_methods(
         "second_method_status": (second_method_status, second_method_file_like, "application/json"),
     }
     response = requests.post(url, files=files)
-    print(response.status_code)
+    print_status_code(response)
     with open(output_path, "w") as out_file:
         json.dump(response.json(), out_file, indent=2)
 
@@ -167,7 +164,7 @@ def plot_comparative_yearly_cpue(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -187,7 +184,7 @@ def plot_comparative_catch_curves(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -205,8 +202,7 @@ def write_population_status(
             files={"file": f},
             data={"bootstrapping_number": bootstrapping_number},
         )
-    print(response.status_code)
-    response.raise_for_status()
+    print_status_code(response)
     with open(output_path, "w") as out_file:
         json.dump(response.json(), out_file, indent=2)
 
@@ -230,8 +226,7 @@ def write_instantaneous_and_cumulative_cpue(
         stream=True,
         timeout=600,
     )
-    print(response.status_code)
-    response.raise_for_status()
+    print_status_code(response)
     json_data = response.json()
     df = pd.DataFrame(json_data)
     df.to_csv(output_path, index=False)
@@ -261,8 +256,7 @@ def write_csv_probability(
         stream=True,
         timeout=600,
     )
-    print(response.status_code)
-    response.raise_for_status()
+    print_status_code(response)
     json_data = response.json()
     df = pd.DataFrame(json_data)
     df.to_csv(output_path, index=False)
@@ -279,7 +273,7 @@ def write_probability_progress_figure(
     files = {"file": (input_path, file_like, "text/csv")}
     response = requests.post(url, files=files)
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -299,7 +293,7 @@ def plot_custom_cpue_vs_cum_captures(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -314,7 +308,7 @@ def plot_cpue_vs_cum_captures(
     files = {"file": (input_path, file_like, "text/csv")}
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
 
 
@@ -329,8 +323,13 @@ def render_instantaneous_and_cumulative_cpue_time_series(
     extension = output_path.split(".")[-1]
     response = requests.post(url, files=files, data={"format": extension})
     write_response_content(output_path, response)
-    print(response.status_code)
+    print_status_code(response)
     return response
+
+
+def print_status_code(response):
+    print(response.status_code)
+    response.raise_for_status()
 
 
 @cli.command()

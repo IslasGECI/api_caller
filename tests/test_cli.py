@@ -348,7 +348,7 @@ def test_write_probability_figure_entrypoint():
 
 def test_render_instantaneous_and_cumulative_cpue_time_series():
     command = "render-instantaneous-and-cumulative-cpue-time-series"
-    result = runner.invoke(cli, [command, "--help"])
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     output_path = "cumulative_cpue_plot.png"
     gtt.if_exist_remove(output_path)

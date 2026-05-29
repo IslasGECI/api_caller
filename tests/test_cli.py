@@ -369,7 +369,8 @@ def test_render_instantaneous_and_cumulative_cpue_time_series():
 
 
 def test_plot_cumulative_series_cpue_by_season():
-    result = runner.invoke(cli, ["plot-cumulative-cpue-series-by-season", "--help"])
+    command = "plot-cumulative-cpue-series-by-season"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
     output_path = "cumulative_by_season.png"
@@ -377,7 +378,7 @@ def test_plot_cumulative_series_cpue_by_season():
     result = runner.invoke(
         cli,
         [
-            "plot-cumulative-cpue-series-by-season",
+            command,
             "--input-path",
             input_path,
             "--output-path",
@@ -394,7 +395,8 @@ def test_plot_cumulative_series_cpue_by_season():
 
 
 def test_plot_cumulative_series_cpue_by_flight_entrypoint():
-    result = runner.invoke(cli, ["plot-cumulative-series-cpue-by-flight", "--help"])
+    command = "plot-cumulative-series-cpue-by-flight"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
 
     output_path = "cumulative_by_flight.png"
@@ -402,7 +404,7 @@ def test_plot_cumulative_series_cpue_by_flight_entrypoint():
     result = runner.invoke(
         cli,
         [
-            "plot-cumulative-series-cpue-by-flight",
+            command,
             "--input-path",
             input_path,
             "--output-path",
@@ -440,7 +442,8 @@ def test_plot_cpue_vs_cum_captures_entrypoint():
 
 
 def test_plot_custom_cpue_vs_cum_captures_entrypoint():
-    result = runner.invoke(cli, ["plot-custom-cpue-vs-cum-captures", "--help"])
+    command = "plot-custom-cpue-vs-cum-captures"
+    result = get_command_help(command)
     assert_command_with_input_and_output_paths(result)
     assert " Path of config file " in result.stdout
 
@@ -451,7 +454,7 @@ def test_plot_custom_cpue_vs_cum_captures_entrypoint():
     result = runner.invoke(
         cli,
         [
-            "plot-custom-cpue-vs-cum-captures",
+            command,
             "--input-path",
             input_path,
             "--config-path",

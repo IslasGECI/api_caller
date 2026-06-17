@@ -79,7 +79,7 @@ red: format
 
 green: format
 	pytest --verbose \
-	&& (git add ${module}/*.py && git commit -m "✅ Pass tests") \
+	&& (git add ${module}/*.py && git commit -m "✅ Pass tests ${message}") \
 	|| git restore ${module}/*.py
 	chmod g+w -R .
 

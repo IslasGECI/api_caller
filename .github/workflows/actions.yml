@@ -11,9 +11,9 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@main
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      uses: docker/setup-buildx-action@master
     - name: Build and export
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@master
       with:
         context: .
         tags: islasgeci/api_caller:latest
@@ -106,3 +106,13 @@ jobs:
       with:
         password: ${{ secrets.PYPI_TOKEN }}
         skip-existing: true
+  cleanup-artifacts:
+    name: Delete temporary artifacts
+    if: always()
+    needs: [deploy-image-and-package]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Docker image artifact
+        uses: geekyeggo/delete-artifact@main
+        with:
+          name: image
